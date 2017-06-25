@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="geographic.boger.me.nationalgeographic.splash.SplashActivity">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:placeholderImage="@mipmap/splash"
+        app:placeholderImageScaleType="focusCrop" />
+
+    <com.jaredrummler.android.widget.AnimatedSvgView
+        android:id="@+id/asv_splash_logo"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="40dp"
+        app:animatedSvgFillColors="@array/ng_logo_color"
+        app:animatedSvgFillStart="300"
+        app:animatedSvgFillTime="800"
+        app:animatedSvgGlyphStrings="@array/ng_yellow_path"
+        app:animatedSvgImageSizeX="300"
+        app:animatedSvgImageSizeY="100"
+        app:animatedSvgTraceTime="1200"
+        app:animatedSvgTraceTimePerGlyph="1200" />
+</FrameLayout>

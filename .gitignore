@@ -1,0 +1,6 @@
+.gradle/
+.idea/
+NationalGeographicDailyPoster.iml
+build/
+local.properties
+nationalgeographic.iml
