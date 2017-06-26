@@ -1,4 +1,4 @@
-package geographic.boger.me.nationalgeographic
+package geographic.boger.me.nationalgeographic.core
 
 import android.app.Application
 import com.facebook.drawee.backends.pipeline.Fresco
@@ -10,5 +10,6 @@ class NGApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         Fresco.initialize(this)
+        DisplayProvider.init(this)
     }
 }

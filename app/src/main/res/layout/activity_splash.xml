@@ -7,10 +7,16 @@
     tools:context="geographic.boger.me.nationalgeographic.splash.SplashActivity">
 
     <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:placeholderImage="@mipmap/splash"
-        app:placeholderImageScaleType="focusCrop" />
+        app:placeholderImageScaleType="centerCrop" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/splash_gradient_overlay" />
 
     <com.jaredrummler.android.widget.AnimatedSvgView
         android:id="@+id/asv_splash_logo"
