@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
         init()
     }
 
-    fun init() {
+    private fun init() {
         val ani = ScaleAnimation(1f, 1.1f, 1f, 1.1f, ScaleAnimation.RELATIVE_TO_PARENT, 0.5f, ScaleAnimation.RELATIVE_TO_PARENT, 0.5f)
         ani.interpolator = LinearInterpolator()
         ani.duration = 3000
@@ -40,10 +40,11 @@ class SplashActivity : AppCompatActivity() {
             }
 
         })
-        sdvSplash.startAnimation(ani)
+//        sdvSplash.startAnimation(ani)
+        handleJump()
     }
 
-    fun handleJump() {
+    private fun handleJump() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
