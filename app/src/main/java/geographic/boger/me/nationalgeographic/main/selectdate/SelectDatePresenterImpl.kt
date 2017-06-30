@@ -24,7 +24,7 @@ class SelectDatePresenterImpl : ISelectDatePresenter {
                     mModel.requestNGDateData(1,
                             onStart = {},
                             onNext = {
-                                mUI?.refreshCardData(it.album)
+                                v.refreshCardData(it.album)
                             },
                             onError = {
                                 Timber.e(it)

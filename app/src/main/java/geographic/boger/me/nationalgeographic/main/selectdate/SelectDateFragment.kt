@@ -63,6 +63,10 @@ class SelectDateFragment : Fragment(), ISelectDateUI {
         view!!.findViewById<TextView>(R.id.tv_fragment_select_date_error)
     }
 
+    private val tvErrorIcon by lazy {
+        view!!.findViewById<TextView>(R.id.tv_fragment_select_date_error_icon)
+    }
+
     override var contentType = ISelectDateUI.ContentType.UNSET
         get() {
             return field
@@ -124,6 +128,7 @@ class SelectDateFragment : Fragment(), ISelectDateUI {
         tvLoading.typeface = DisplayProvider.primaryTypeface
         lvLoading.setLoadingRenderer(DanceLoadingRenderer.Builder(activity).build())
         tvError.typeface = DisplayProvider.primaryTypeface
+        tvErrorIcon.typeface = DisplayProvider.iconFont
     }
 
     override fun getContentView(): View {
