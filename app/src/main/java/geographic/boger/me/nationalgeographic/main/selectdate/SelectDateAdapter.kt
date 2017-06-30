@@ -19,29 +19,25 @@ class SelectDateAdapter : RecyclerView.Adapter<SelectDateAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val sdvContent by lazy { itemView.findViewById<SimpleDraweeView>(R.id.sdv_item_select_date) }
         val tvText by lazy { itemView.findViewById<TextView>(R.id.tv_item_select_date) }
+
         init {
             tvText.typeface = DisplayProvider.primaryTypeface
         }
     }
 
-    private var mData: List<SelectDateAlbumData>? = null
-
-    fun setData(newData: List<SelectDateAlbumData>) {
-        mData = newData
-        notifyDataSetChanged()
-    }
+    var listData: MutableList<SelectDateAlbumData> = mutableListOf()
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         try {
-            holder?.sdvContent?.setImageURI(mData!![position].url)
-            holder?.tvText?.text = mData!![position].title
+            holder?.sdvContent?.setImageURI(listData[position].url)
+            holder?.tvText?.text = listData[position].title
         } catch (e: Exception) {
             Timber.e(e)
         }
     }
 
     override fun getItemCount(): Int {
-        return mData?.size?:0
+        return listData.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {

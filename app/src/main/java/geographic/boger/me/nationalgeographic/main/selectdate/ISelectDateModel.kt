@@ -9,8 +9,13 @@ interface ISelectDateModel {
 
     fun requestNGDateData(
             pageIdx: Int,
+            onStart: () -> Unit,
             onError: (Throwable) -> Unit,
             onComplete: () -> Unit,
             onNext: (SelectDateData) -> Unit
     ): Disposable
+
+    var currentPage: Int
+
+    fun hasNextPage(): Boolean
 }

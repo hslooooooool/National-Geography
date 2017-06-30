@@ -7,6 +7,7 @@
     <color name="splash_gray_end">#0c000000</color>
     <color name="splash_gray_center">#4f000000</color>
     <color name="ng_yellow">#fdd000</color>
+    <color name="ng_yellow_50">#7ffdd000</color>
     <color name="pink">#ca5d81</color>
     <color name="color_gray_50">#7f292421</color>
 

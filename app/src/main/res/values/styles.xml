@@ -26,6 +26,7 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:drawablePadding">10dp</item>
     </style>
+
     <style name="AppTheme.SelectDateText">
         <item name="android:textSize">18dp</item>
         <item name="android:paddingLeft">10dp</item>
@@ -34,6 +35,20 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@drawable/item_select_date_text_bg</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">end</item>
+    </style>
+
+    <style name="AppTheme.LoadingText">
+        <item name="android:textSize">14dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">end</item>
     </style>
 

@@ -1,8 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rv_fragment_select_date"
+<android.support.v7.widget.ContentFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:overScrollMode="never"
-    android:scrollbars="none"
-    android:paddingBottom="30dp" />
+    tools:background="@android:color/black">
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/ll_fragment_select_date_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription="@string/tip_refresh"
+            android:padding="15dp"
+            android:src="@drawable/ic_refresh" />
+
+        <TextView
+            android:id="@+id/tv_fragment_select_date_error"
+            style="@style/AppTheme.LoadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tip_refresh" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/ll_fragment_select_date_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <app.dinus.com.loadingdrawable.LoadingView
+            android:id="@+id/lv_fragment_select_date_loading"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+
+        <TextView
+            android:id="@+id/tv_fragment_select_date_loading"
+            style="@style/AppTheme.LoadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tip_loading" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/trl_select_date"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_fragment_select_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:paddingBottom="30dp"
+            android:scrollbars="none" />
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+</android.support.v7.widget.ContentFrameLayout>

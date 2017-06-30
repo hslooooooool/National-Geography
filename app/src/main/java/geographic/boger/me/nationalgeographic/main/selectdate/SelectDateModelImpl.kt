@@ -1,5 +1,6 @@
 package geographic.boger.me.nationalgeographic.main.selectdate
 
+import geographic.boger.me.nationalgeographic.core.NGRumtime
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -13,6 +14,9 @@ import io.reactivex.schedulers.Schedulers
 class SelectDateModelImpl : ISelectDateModel {
 
     private val mSelectDateDataList = arrayListOf<SelectDateData>()
+    private val mSelectDateNetworkService by lazy {
+        NGRumtime.retrofit.create(SelectDateNetworkService::class.java)
+    }
 
     private fun mockData(): SelectDateData {
         fun mockAlbumData(count: String): SelectDateAlbumData {
@@ -20,14 +24,23 @@ class SelectDateModelImpl : ISelectDateModel {
         }
 
         val albumArray = arrayListOf<SelectDateAlbumData>()
-        for (j in 1..40) {
+        for (j in 1..10) {
             albumArray.add(mockAlbumData(4.toString()))
         }
         return SelectDateData("4", "1", "13", albumArray)
     }
 
+    override var currentPage: Int = 1
+
+    private var totalPage: Int = 0
+
+    override fun hasNextPage(): Boolean {
+        return currentPage < totalPage
+    }
+
     override fun requestNGDateData(
             pageIdx: Int,
+            onStart: () -> Unit,
             onError: (Throwable) -> Unit,
             onComplete: () -> Unit,
             onNext: (SelectDateData) -> Unit
@@ -36,23 +49,26 @@ class SelectDateModelImpl : ISelectDateModel {
         mSelectDateDataList.forEach {
             if (it.page == pageIdxStr) {
                 return Observable.fromArray(it)
-                        .observeOn(AndroidSchedulers.mainThread())
+                        .map {
+                            currentPage = it.page.toInt()
+                            totalPage = it.pagecount.toInt()
+                            return@map it
+                        }.observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(onError, onComplete, onNext)
             }
         }
-        return Observable.fromArray(mockData())
+        return mSelectDateNetworkService.requestNGDateData(pageIdx)
                 .map {
                     mSelectDateDataList.add(it)
+                    currentPage = it.page.toInt()
+                    totalPage = it.pagecount.toInt()
                     return@map it
                 }
+                .doOnSubscribe { onStart() }
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(onError, onComplete, onNext)
 
-    }
-
-    fun hasMoreSelectDateData(): Boolean {
-        return mSelectDateDataList.size == 0
-                || mSelectDateDataList[0].pagecount != mSelectDateDataList.size.toString()
     }
 }

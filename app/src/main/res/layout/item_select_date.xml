@@ -9,7 +9,7 @@
         android:id="@+id/sdv_item_select_date"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/pink"
+        android:background="@drawable/item_select_date_image_bg"
         app:actualImageScaleType="centerCrop"
         app:placeholderImage="@drawable/ng_logo_pure"
         app:roundAsCircle="false"
@@ -21,7 +21,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:ellipsize="end"
-        android:maxLines="1"
         tools:text="2017-06-25 每日精选" />
 </FrameLayout>
