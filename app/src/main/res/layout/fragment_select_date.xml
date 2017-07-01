@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.ContentFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@android:color/black">
+    android:background="@color/colorPrimary"
+    android:clickable="true">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/ll_fragment_select_date_error"
@@ -43,14 +44,16 @@
         <app.dinus.com.loadingdrawable.LoadingView
             android:id="@+id/lv_fragment_select_date_loading"
             android:layout_width="80dp"
-            android:layout_height="80dp" />
+            android:layout_height="80dp"
+            app:loading_renderer="DanceLoadingRenderer" />
 
         <TextView
             android:id="@+id/tv_fragment_select_date_loading"
             style="@style/AppTheme.LoadingText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tip_loading" />
+            android:text="@string/tip_loading"
+            android:textColor="@android:color/white" />
 
     </android.support.v7.widget.LinearLayoutCompat>
 
@@ -65,7 +68,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never"
-            android:paddingBottom="30dp"
             android:scrollbars="none" />
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 </android.support.v7.widget.ContentFrameLayout>

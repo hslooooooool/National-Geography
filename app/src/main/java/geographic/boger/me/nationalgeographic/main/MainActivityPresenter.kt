@@ -7,8 +7,11 @@ class MainActivityPresenter {
 
     private var mView : MainActivity? = null
 
-    fun init(ctx: MainActivity) {
-        mView = ctx
-        mView!!.showSelectDateContent()
+    fun init(act: MainActivity) {
+        act.showSelectDateContent()
+        act.setAlbumSelectedListener {
+            act.showNGDetailContent(it)
+        }
+        mView = act
     }
 }

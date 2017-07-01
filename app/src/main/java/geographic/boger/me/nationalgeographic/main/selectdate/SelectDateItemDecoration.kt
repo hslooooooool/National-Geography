@@ -11,9 +11,10 @@ import geographic.boger.me.nationalgeographic.core.DisplayProvider
 class SelectDateItemDecoration : RecyclerView.ItemDecoration() {
     override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
         super.getItemOffsets(outRect, view, parent, state)
-        var dp10 = DisplayProvider.dp2px(10).toInt()
-        outRect?.top = dp10 * 3
-        outRect?.left = dp10 * 2
-        outRect?.right = dp10 * 2
+        val dp5 = DisplayProvider.dp2px(5).toInt()
+        outRect?.top = dp5 * 3
+        outRect?.bottom = dp5 *3
+        outRect?.left = dp5 * 3
+        outRect?.right = dp5 * 3
     }
 }

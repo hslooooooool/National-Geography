@@ -1,34 +1,40 @@
 package geographic.boger.me.nationalgeographic.main
 
-import android.app.Fragment
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.ContentFrameLayout
 import android.widget.TextView
 import geographic.boger.me.nationalgeographic.R
 import geographic.boger.me.nationalgeographic.core.DisplayProvider
+import geographic.boger.me.nationalgeographic.main.ngdetail.NGDetailFragment
+import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateAlbumData
 import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IActivityMainUIController {
 
-    private val fragmentSelectDate: Fragment by lazy {
+    private val fragmentSelectDate by lazy {
         SelectDateFragment()
     }
 
-    private val mPresenter: MainActivityPresenter by lazy {
+    private val mPresenter by lazy {
         MainActivityPresenter()
     }
 
-    private val tvNGTitle: TextView by lazy {
+    private val tvNGTitle by lazy {
         findViewById(R.id.tv_activity_main_ng_title) as TextView
     }
 
-    private val tvNGMenu: TextView by lazy {
+    private val tvNGMenu by lazy {
         findViewById(R.id.tv_activity_main_ng_menu) as TextView
     }
 
-    private val cflContent: ContentFrameLayout by lazy {
+    private val cflContent by lazy {
         findViewById(R.id.cfl_activity_main_ng_content) as ContentFrameLayout
+    }
+
+    private val ablTitle by lazy {
+        findViewById(R.id.abl_activity_main_ng_title) as AppBarLayout
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +48,19 @@ class MainActivity : AppCompatActivity() {
         fragmentManager.beginTransaction()
                 .add(R.id.cfl_activity_main_ng_content, fragmentSelectDate, SelectDateFragment.TAG)
                 .commit()
+    }
+
+    fun showNGDetailContent(data: SelectDateAlbumData) {
+        val df = NGDetailFragment(data, this)
+        fragmentManager.beginTransaction()
+                .add(R.id.cfl_activity_main_ng_content_full, df, NGDetailFragment.TAG)
+                .addToBackStack(null)
+                .commit()
+        ablTitle.setExpanded(true)
+    }
+
+    fun setAlbumSelectedListener(listener: (SelectDateAlbumData) -> Unit) {
+        fragmentSelectDate.albumSelectedListener = listener
     }
 
     private fun initView() {

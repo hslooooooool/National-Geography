@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity() {
             }
 
             override fun onAnimationEnd(animation: Animation?) {
-//                handleJump()
+                handleJump()
             }
 
             override fun onAnimationStart(animation: Animation?) {
@@ -40,8 +40,7 @@ class SplashActivity : AppCompatActivity() {
             }
 
         })
-//        sdvSplash.startAnimation(ani)
-        handleJump()
+        sdvSplash.startAnimation(ani)
     }
 
     private fun handleJump() {

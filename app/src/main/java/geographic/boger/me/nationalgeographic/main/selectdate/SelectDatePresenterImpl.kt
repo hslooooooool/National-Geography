@@ -2,6 +2,7 @@ package geographic.boger.me.nationalgeographic.main.selectdate
 
 import android.support.design.widget.Snackbar
 import geographic.boger.me.nationalgeographic.R
+import geographic.boger.me.nationalgeographic.main.ContentType
 import geographic.boger.me.nationalgeographic.util.Timber
 
 /**
@@ -62,15 +63,15 @@ class SelectDatePresenterImpl : ISelectDatePresenter {
     private fun firstLoadNGData() {
         mModel.requestNGDateData(1,
                 onStart = {
-                    mUI?.contentType = ISelectDateUI.ContentType.LOADING
+                    mUI?.contentType = ContentType.LOADING
                 },
                 onNext = {
                     mUI?.refreshCardData(it.album)
-                    mUI?.contentType = ISelectDateUI.ContentType.CONTENT
+                    mUI?.contentType = ContentType.CONTENT
                 },
                 onError = {
                     Timber.e(it)
-                    mUI?.contentType = ISelectDateUI.ContentType.ERROR
+                    mUI?.contentType = ContentType.ERROR
                 },
                 onComplete = {
                     mUI?.setEnableLoadMore(mModel.hasNextPage())

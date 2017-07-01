@@ -14,12 +14,11 @@ import geographic.boger.me.nationalgeographic.util.Timber
  * Created by BogerChan on 2017/6/29.
  */
 
-class SelectDateAdapter : RecyclerView.Adapter<SelectDateAdapter.ViewHolder>() {
+class SelectDateAdapter(val onItemClickListener: (SelectDateAlbumData) -> Unit) : RecyclerView.Adapter<SelectDateAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val sdvContent by lazy { itemView.findViewById<SimpleDraweeView>(R.id.sdv_item_select_date) }
         val tvText by lazy { itemView.findViewById<TextView>(R.id.tv_item_select_date) }
-
         init {
             tvText.typeface = DisplayProvider.primaryTypeface
         }
@@ -41,7 +40,11 @@ class SelectDateAdapter : RecyclerView.Adapter<SelectDateAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent!!.context)
+        val vh = ViewHolder(LayoutInflater.from(parent!!.context)
                 .inflate(R.layout.item_select_date, parent, false))
+        vh.itemView.setOnClickListener {
+            onItemClickListener(listData[vh.adapterPosition])
+        }
+        return vh
     }
 }

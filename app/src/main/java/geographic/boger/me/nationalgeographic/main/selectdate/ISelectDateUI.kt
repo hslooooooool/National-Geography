@@ -1,15 +1,12 @@
 package geographic.boger.me.nationalgeographic.main.selectdate
 
 import android.view.View
+import geographic.boger.me.nationalgeographic.main.ContentType
 
 /**
  * Created by BogerChan on 2017/6/27.
  */
 interface ISelectDateUI {
-
-    enum class ContentType {
-        UNSET, CONTENT, LOADING, ERROR
-    }
 
     var contentType: ContentType
 

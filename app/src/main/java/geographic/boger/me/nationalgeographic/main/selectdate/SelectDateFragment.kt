@@ -10,14 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import app.dinus.com.loadingdrawable.LoadingView
-import app.dinus.com.loadingdrawable.render.circle.jump.DanceLoadingRenderer
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
 import com.lcodecore.tkrefreshlayout.footer.BallPulseView
 import com.lcodecore.tkrefreshlayout.header.bezierlayout.BezierLayout
 import geographic.boger.me.nationalgeographic.R
 import geographic.boger.me.nationalgeographic.core.DisplayProvider
+import geographic.boger.me.nationalgeographic.main.ContentType
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter
 import jp.wasabeef.recyclerview.animators.LandingAnimator
@@ -43,10 +42,6 @@ class SelectDateFragment : Fragment(), ISelectDateUI {
         view!!.findViewById<TwinklingRefreshLayout>(R.id.trl_select_date)
     }
 
-    private val lvLoading by lazy {
-        view!!.findViewById<LoadingView>(R.id.lv_fragment_select_date_loading)
-    }
-
     private val tvLoading by lazy {
         view!!.findViewById<TextView>(R.id.tv_fragment_select_date_loading)
     }
@@ -67,23 +62,23 @@ class SelectDateFragment : Fragment(), ISelectDateUI {
         view!!.findViewById<TextView>(R.id.tv_fragment_select_date_error_icon)
     }
 
-    override var contentType = ISelectDateUI.ContentType.UNSET
+    override var contentType = ContentType.UNSET
         get() {
             return field
         }
         set(value) {
             when (value) {
-                ISelectDateUI.ContentType.LOADING -> {
+                ContentType.LOADING -> {
                     llLoading.visibility = View.VISIBLE
                     llError.visibility = View.INVISIBLE
                     trlContent.visibility = View.INVISIBLE
                 }
-                ISelectDateUI.ContentType.CONTENT -> {
+                ContentType.CONTENT -> {
                     llLoading.visibility = View.INVISIBLE
                     llError.visibility = View.INVISIBLE
                     trlContent.visibility = View.VISIBLE
                 }
-                ISelectDateUI.ContentType.ERROR -> {
+                ContentType.ERROR -> {
                     llLoading.visibility = View.INVISIBLE
                     llError.visibility = View.VISIBLE
                     trlContent.visibility = View.INVISIBLE
@@ -93,6 +88,8 @@ class SelectDateFragment : Fragment(), ISelectDateUI {
             }
             field = value
         }
+
+    var albumSelectedListener: (SelectDateAlbumData) -> Unit = {}
 
     override fun setOnRetryClickListener(listener: (view: View) -> Unit) {
         llError.setOnClickListener(listener)
@@ -113,7 +110,7 @@ class SelectDateFragment : Fragment(), ISelectDateUI {
     }
 
     fun initViews() {
-        rvContent.adapter = SlideInBottomAnimationAdapter(SelectDateAdapter())
+        rvContent.adapter = SlideInBottomAnimationAdapter(SelectDateAdapter(albumSelectedListener))
         rvContent.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         rvContent.itemAnimator = LandingAnimator()
         rvContent.addItemDecoration(SelectDateItemDecoration())
@@ -126,7 +123,6 @@ class SelectDateFragment : Fragment(), ISelectDateUI {
         ballPulseView.setAnimatingColor(ResourcesCompat.getColor(resources, R.color.ng_yellow_50, activity.theme))
         trlContent.setBottomView(ballPulseView)
         tvLoading.typeface = DisplayProvider.primaryTypeface
-        lvLoading.setLoadingRenderer(DanceLoadingRenderer.Builder(activity).build())
         tvError.typeface = DisplayProvider.primaryTypeface
         tvErrorIcon.typeface = DisplayProvider.iconFont
     }
