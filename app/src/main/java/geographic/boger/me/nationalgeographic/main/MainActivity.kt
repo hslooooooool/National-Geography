@@ -3,7 +3,8 @@ package geographic.boger.me.nationalgeographic.main
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.ContentFrameLayout
+import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import geographic.boger.me.nationalgeographic.R
 import geographic.boger.me.nationalgeographic.core.DisplayProvider
@@ -27,10 +28,6 @@ class MainActivity : AppCompatActivity(), IActivityMainUIController {
 
     private val tvNGMenu by lazy {
         findViewById(R.id.tv_activity_main_ng_menu) as TextView
-    }
-
-    private val cflContent by lazy {
-        findViewById(R.id.cfl_activity_main_ng_content) as ContentFrameLayout
     }
 
     private val ablTitle by lazy {
@@ -66,5 +63,12 @@ class MainActivity : AppCompatActivity(), IActivityMainUIController {
     private fun initView() {
         tvNGTitle.typeface = DisplayProvider.primaryTypeface
         tvNGMenu.typeface = DisplayProvider.iconFont
+        ablTitle.postDelayed({
+            window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        }, 800)
+    }
+
+    override fun getTitleBar(): View {
+        return ablTitle
     }
 }

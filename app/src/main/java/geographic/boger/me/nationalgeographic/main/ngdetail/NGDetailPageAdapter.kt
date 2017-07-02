@@ -12,8 +12,14 @@ import geographic.boger.me.nationalgeographic.R
  */
 class NGDetailPageAdapter(var data: List<NGDetailPictureData> = emptyList()) : PagerAdapter() {
 
+    interface OnItemClickListener {
+        fun onItemClick(v: View, position: Int)
+    }
+
     private val mIdleViewList by lazy { arrayListOf<SimpleDraweeView>() }
     private val mViewMap by lazy { linkedMapOf<Int, SimpleDraweeView>() }
+
+    private var mOnItemClickListener: OnItemClickListener? = null
 
     override fun isViewFromObject(view: View?, `object`: Any?): Boolean = view == `object`
 
@@ -26,6 +32,9 @@ class NGDetailPageAdapter(var data: List<NGDetailPictureData> = emptyList()) : P
         v.setImageURI(data[position].url)
         container!!.addView(v,
                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+        v.setOnClickListener {
+            mOnItemClickListener?.onItemClick(v, position)
+        }
         return v
     }
 
@@ -41,5 +50,9 @@ class NGDetailPageAdapter(var data: List<NGDetailPictureData> = emptyList()) : P
         h.setPlaceholderImage(R.drawable.ng_logo_pure, ScalingUtils.ScaleType.CENTER)
         controller = null
         return this
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        mOnItemClickListener = listener
     }
 }

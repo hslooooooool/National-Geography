@@ -46,5 +46,6 @@ class SplashActivity : AppCompatActivity() {
     private fun handleJump() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
+        overridePendingTransition(R.anim.scale_in, R.anim.scale_out)
     }
 }

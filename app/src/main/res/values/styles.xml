@@ -13,7 +13,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.Splash" parent="AppTheme.NoActionBar">
+    <style name="AppTheme.Full" parent="AppTheme.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@drawable/quick_splash</item>
     </style>

@@ -21,7 +21,7 @@
         android:orientation="vertical"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/tv_fragment_ng_detail_title"
@@ -40,7 +40,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
             android:fadingEdge="none"
             android:scrollbars="none">
 
@@ -52,6 +52,7 @@
         </ScrollView>
 
         <View
+            android:id="@+id/v_fragment_ng_detail_divider_menu"
             style="@style/AppTheme.Divider"
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -86,6 +87,7 @@
             </android.support.v7.widget.LinearLayoutCompat>
 
             <View
+                android:id="@+id/v_fragment_ng_detail_divider_1"
                 style="@style/AppTheme.Divider"
                 android:layout_width="1px"
                 android:layout_height="match_parent" />
@@ -113,6 +115,7 @@
             </android.support.v7.widget.LinearLayoutCompat>
 
             <View
+                android:id="@+id/v_fragment_ng_detail_divider_2"
                 style="@style/AppTheme.Divider"
                 android:layout_width="1px"
                 android:layout_height="match_parent" />
@@ -140,20 +143,27 @@
             </android.support.v7.widget.LinearLayoutCompat>
 
             <View
+                android:id="@+id/v_fragment_ng_detail_divider_3"
                 style="@style/AppTheme.Divider"
                 android:layout_width="1px"
                 android:layout_height="match_parent" />
 
-            <TextView
-                android:id="@+id/tv_fragment_ng_detail_menu_icon"
-                style="@style/AppTheme.NGDetailMenuIcon"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <View
+                android:layout_width="1dp"
                 android:layout_weight="1"
-                android:text="&#xe736;" />
+                android:visibility="invisible"
+                android:layout_height="1dp" />
         </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v7.widget.LinearLayoutCompat>
-
+    <TextView
+        android:id="@+id/tv_fragment_ng_detail_menu_icon"
+        style="@style/AppTheme.NGDetailMenuIcon"
+        android:layout_width="40dp"
+        android:layout_gravity="bottom|right"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:layout_height="40dp"
+        android:text="&#xe736;" />
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/llc_fragment_ng_detail_loading"
         android:layout_width="match_parent"
