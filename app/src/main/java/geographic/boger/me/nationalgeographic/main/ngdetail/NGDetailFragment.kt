@@ -20,6 +20,7 @@ import geographic.boger.me.nationalgeographic.core.DisplayProvider
 import geographic.boger.me.nationalgeographic.main.ContentType
 import geographic.boger.me.nationalgeographic.main.IActivityMainUIController
 import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateAlbumData
+import geographic.boger.me.nationalgeographic.util.Timber
 
 /**
  * Created by BogerChan on 2017/6/30.
@@ -249,6 +250,7 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
 
     private fun setBottomMenuExpanded(expand: Boolean) {
         mPendingMenuAnimator?.cancel()
+        val iconText = if (expand) "\ue649" else "\ue6e5"
         val range = if (expand) arrayOf(llcIntroAndMenu.translationY, 0f) else
             arrayOf(llcIntroAndMenu.translationY, (llcIntroAndMenu.height - vMenuDivider.top).toFloat())
         val ani = ValueAnimator.ofFloat(*range.toFloatArray())
@@ -257,6 +259,16 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
         ani.addUpdateListener {
             val value = it.animatedValue as Float
             llcIntroAndMenu.translationY = value
+            val fraction = it.animatedFraction
+            tvMenuButton.rotation = fraction
+            if (fraction > .5f) {
+                tvMenuButton.alpha = (fraction - 0.5f) * 2
+                if (iconText != tvMenuButton.text) {
+                    tvMenuButton.text = iconText
+                }
+            } else {
+                tvMenuButton.alpha = 1 - fraction * 2
+            }
         }
         ani.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator?) {
@@ -264,13 +276,13 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
                     return
                 }
                 if (expand) {
-                    tvBody.maxLines = Int.MAX_VALUE
                     llcMenuShare.visibility = View.VISIBLE
                     llcMenuSave.visibility = View.VISIBLE
                     llcMenuFav.visibility = View.VISIBLE
                     mMenuDividerList.forEach {
                         it.visibility = View.VISIBLE
                     }
+                    tvBody.maxLines = Int.MAX_VALUE
                 } else {
                     tvBody.maxLines = 4
                 }
