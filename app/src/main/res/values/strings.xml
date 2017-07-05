@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NationalGeographicDailyPoster</string>
+    <string name="app_name">掌上国家地理</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="daily_recommendation">每日推荐</string>
     <string name="tip_load_error">数据加载失败, 请检查网络后重试</string>
@@ -8,4 +8,8 @@
     <string name="text_share">分享</string>
     <string name="text_save">保存</string>
     <string name="text_fav">收藏</string>
+    <string name="menu_language_settings">语言设置</string>
+    <string name="tip_unsupport">功能暂未支持, 后续版本开启!</string>
+    <string name="menu_clean_cache">清理缓存</string>
+    <string name="menu_download_offline">离线下载</string>
 </resources>

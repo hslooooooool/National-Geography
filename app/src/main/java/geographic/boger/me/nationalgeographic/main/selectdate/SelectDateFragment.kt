@@ -24,7 +24,8 @@ import jp.wasabeef.recyclerview.animators.LandingAnimator
 /**
  * Created by BogerChan on 2017/6/27.
  */
-class SelectDateFragment : Fragment(), ISelectDateUI {
+class SelectDateFragment(
+        var albumSelectedListener: (SelectDateAlbumData) -> Unit = {}) : Fragment(), ISelectDateUI {
 
     companion object {
         val TAG = "SelectDateFragment"
@@ -88,8 +89,6 @@ class SelectDateFragment : Fragment(), ISelectDateUI {
             }
             field = value
         }
-
-    var albumSelectedListener: (SelectDateAlbumData) -> Unit = {}
 
     override fun setOnRetryClickListener(listener: (view: View) -> Unit) {
         llError.setOnClickListener(listener)

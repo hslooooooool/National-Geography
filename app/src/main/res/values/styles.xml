@@ -24,8 +24,8 @@
 
     <style name="AppTheme.NGTitle">
         <item name="android:textSize">25dp</item>
-        <item name="android:textColor">@android:color/white</item>
         <item name="android:drawablePadding">10dp</item>
+        <item name="android:textColor">@drawable/selector_retry_foreground</item>
     </style>
 
     <style name="AppTheme.SelectDateText">
@@ -100,6 +100,19 @@
         <item name="android:textColor">@drawable/selector_retry_foreground</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="AppTheme.OverlayMenuText">
+        <item name="android:textSize">20dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:textColor">@drawable/selector_retry_foreground</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 
     <style name="AppTheme.Divider">
         <item name="android:background">@android:color/white</item>

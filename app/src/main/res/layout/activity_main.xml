@@ -2,15 +2,26 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_activity_main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/cl_activity_main_content"
     android:background="@color/colorPrimary"
     tools:context="geographic.boger.me.nationalgeographic.main.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <android.support.v7.widget.ContentFrameLayout
+        android:id="@+id/cfl_activity_main_ng_content"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <android.support.v7.widget.ContentFrameLayout
+        android:id="@+id/cfl_activity_main_ng_content_full"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.design.widget.AppBarLayout
         android:id="@+id/abl_activity_main_ng_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.LinearLayoutCompat
@@ -33,20 +44,25 @@
                 style="@style/AppTheme.NGTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="&#xe665;" />
+                android:layout_marginLeft="10dp" />
         </android.support.v7.widget.LinearLayoutCompat>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.ContentFrameLayout
-        android:id="@+id/cfl_activity_main_ng_content"
+    <ScrollView
+        android:id="@+id/sv_activity_main_overlay_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:background="@color/color_gray_90"
+        android:visibility="invisible"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.v7.widget.ContentFrameLayout
-        android:id="@+id/cfl_activity_main_ng_content_full"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/llc_activity_main_overlay_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" />
+    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -21,6 +21,7 @@ import geographic.boger.me.nationalgeographic.main.ContentType
 import geographic.boger.me.nationalgeographic.main.IActivityMainUIController
 import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateAlbumData
 import geographic.boger.me.nationalgeographic.util.Timber
+import java.util.*
 
 /**
  * Created by BogerChan on 2017/6/30.
@@ -59,6 +60,10 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
 
     private val tvTitle by lazy {
         view!!.findViewById<TextView>(R.id.tv_fragment_ng_detail_title)
+    }
+
+    private val tvPageIdx by lazy {
+        view!!.findViewById<TextView>(R.id.tv_fragment_ng_detail_page_idx)
     }
 
     private val tvBody by lazy {
@@ -123,6 +128,7 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
 
     fun initView() {
         tvTitle.typeface = DisplayProvider.primaryTypeface
+        tvPageIdx.typeface = DisplayProvider.primaryTypeface
         tvBody.typeface = DisplayProvider.primaryTypeface
         mIconList.forEach {
             it.typeface = DisplayProvider.iconFont
@@ -145,7 +151,7 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
         vpContent.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
 
             override fun onPageSelected(position: Int) {
-                updateText(adapter.data[position])
+                updateText(adapter.data, position)
             }
 
         })
@@ -179,11 +185,13 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
                     llcLoading.visibility = View.VISIBLE
                     llcIntroAndMenu.visibility = View.INVISIBLE
                     vpContent.visibility = View.INVISIBLE
+                    tvMenuButton.visibility = View.INVISIBLE
                 }
                 ContentType.CONTENT -> {
                     llcLoading.visibility = View.INVISIBLE
                     llcIntroAndMenu.visibility = View.VISIBLE
                     vpContent.visibility = View.VISIBLE
+                    tvMenuButton.visibility = View.VISIBLE
                 }
                 ContentType.ERROR -> {
                     Snackbar.make(view, R.string.tip_load_error, Snackbar.LENGTH_SHORT).show()
@@ -200,11 +208,13 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
         adapter.data = data
         adapter.notifyDataSetChanged()
         vpContent.currentItem = 0
-        updateText(data[0])
+        updateText(data, 0)
     }
 
-    private fun updateText(data: NGDetailPictureData) {
+    private fun updateText(dataList: List<NGDetailPictureData>, idx: Int) {
+        val data = dataList[idx]
         tvTitle.text = data.title
+        tvPageIdx.text = String.format(Locale.US, "%2d/%2d", idx + 1, dataList.size)
         tvBody.text = "${data.content} (摄影: ${data.author})"
     }
 
@@ -225,6 +235,7 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
         }
         ani.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator?) {
+                mPendingOverlayAnimator = ani
                 if (show) {
                     titleBar.visibility = View.VISIBLE
                     if (isVisible) {
@@ -235,6 +246,7 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
             }
 
             override fun onAnimationEnd(animation: Animator?) {
+                mPendingOverlayAnimator = null
                 if (!show) {
                     titleBar.visibility = View.INVISIBLE
                     if (isVisible) {
@@ -244,7 +256,6 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
                 }
             }
         })
-        mPendingOverlayAnimator = ani
         ani.start()
     }
 
@@ -272,6 +283,7 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
         }
         ani.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator?) {
+                mPendingMenuAnimator = ani
                 if (!isVisible) {
                     return
                 }
@@ -289,6 +301,7 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
             }
 
             override fun onAnimationEnd(animation: Animator?) {
+                mPendingMenuAnimator = null
                 if (!isVisible) {
                     return
                 }
@@ -300,10 +313,8 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
                         it.visibility = View.INVISIBLE
                     }
                 }
-                mPendingMenuAnimator = null
             }
         })
-        mPendingMenuAnimator = ani
         ani.start()
     }
 }

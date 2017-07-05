@@ -10,6 +10,7 @@
     <color name="ng_yellow_50">#7ffdd000</color>
     <color name="pink">#ca5d81</color>
     <color name="color_gray_50">#7f292421</color>
+    <color name="color_gray_90">#e6292421</color>
     <color name="color_black_70">#b3000000</color>
 
 </resources>
