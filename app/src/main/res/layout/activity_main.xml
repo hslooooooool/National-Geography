@@ -27,19 +27,20 @@
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
             app:layout_scrollFlags="snap">
 
             <TextView
+                android:padding="12dp"
                 android:id="@+id/tv_activity_main_ng_title"
                 style="@style/AppTheme.NGTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/ng_logo_pure"
+                android:drawableLeft="@drawable/ic_action_ng_logo"
                 android:text="@string/daily_recommendation" />
 
             <TextView
+                android:padding="12dp"
                 android:id="@+id/tv_activity_main_ng_menu"
                 style="@style/AppTheme.NGTitle"
                 android:layout_width="wrap_content"

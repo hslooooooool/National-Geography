@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">掌上国家地理</string>
+    <string name="app_name">国家地理聚合</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="daily_recommendation">每日推荐</string>
     <string name="tip_load_error">数据加载失败, 请检查网络后重试</string>
