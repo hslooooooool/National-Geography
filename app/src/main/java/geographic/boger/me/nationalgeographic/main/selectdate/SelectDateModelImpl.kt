@@ -48,21 +48,23 @@ class SelectDateModelImpl : ISelectDateModel {
         val pageIdxStr: String = pageIdx.toString()
         mSelectDateDataList.forEach {
             if (it.page == pageIdxStr) {
-                return Observable.fromArray(it)
-                        .map {
+                return Observable.just(it)
+                        .doOnNext {
                             currentPage = it.page.toInt()
                             totalPage = it.pagecount.toInt()
-                            return@map it
-                        }.observeOn(AndroidSchedulers.mainThread())
+                        }
+                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(onError, onComplete, onNext)
             }
         }
         return mSelectDateNetworkService.requestNGDateData(pageIdx)
-                .map {
+                .doOnNext {
                     mSelectDateDataList.add(it)
                     currentPage = it.page.toInt()
                     totalPage = it.pagecount.toInt()
-                    return@map it
+                    if (currentPage == 1) {
+                        it.album.add(0, SelectDateAlbumData.getFavoriteAlbumData())
+                    }
                 }
                 .doOnSubscribe { onStart() }
                 .subscribeOn(AndroidSchedulers.mainThread())

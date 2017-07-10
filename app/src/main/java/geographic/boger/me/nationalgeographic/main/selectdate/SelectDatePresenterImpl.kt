@@ -77,4 +77,8 @@ class SelectDatePresenterImpl : ISelectDatePresenter {
                     mUI?.setEnableLoadMore(mModel.hasNextPage())
                 })
     }
+
+    override fun notifyFavoriteNGDetailDataChanged() {
+        mUI!!.refreshFavoriteData(SelectDateAlbumData.getFavoriteAlbumData())
+    }
 }

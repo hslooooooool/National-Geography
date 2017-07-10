@@ -14,6 +14,7 @@ class NGApplication : Application() {
         initLog()
         Fresco.initialize(this)
         DisplayProvider.init(this)
+        NGRumtime.init(this)
     }
 
     private fun initLog() {

@@ -12,6 +12,8 @@ interface ISelectDateUI {
 
     fun getContentView(): View
 
+    fun refreshFavoriteData(favoriteData: SelectDateAlbumData)
+
     fun refreshCardData(data: List<SelectDateAlbumData>, append: Boolean = false)
 
     fun finishLoadMore()

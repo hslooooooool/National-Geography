@@ -19,6 +19,7 @@ import android.widget.TextView
 import geographic.boger.me.nationalgeographic.BuildConfig
 import geographic.boger.me.nationalgeographic.R
 import geographic.boger.me.nationalgeographic.core.DisplayProvider
+import geographic.boger.me.nationalgeographic.core.NGRumtime
 import geographic.boger.me.nationalgeographic.main.ngdetail.NGDetailFragment
 import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateAlbumData
 import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateFragment
@@ -69,7 +70,20 @@ class MainActivity : AppCompatActivity(), IActivityMainUIController {
     }
 
     fun showNGDetailContent(data: SelectDateAlbumData) {
-        val df = NGDetailFragment(data, this)
+        val offlineData =
+                if (data.id == "unset") NGRumtime.favoriteNGDetailDataSupplier.getNGDetailData() else null
+        if (offlineData != null && offlineData.picture.isEmpty()) {
+            Snackbar.make(
+                    findViewById(R.id.cfl_activity_main_ng_content_full),
+                    getString(R.string.tip_empty_favorite),
+                    Snackbar.LENGTH_SHORT)
+                    .show()
+            return
+        }
+        val df = NGDetailFragment(
+                data = data,
+                controller = this,
+                offlineData = offlineData)
         fragmentManager.beginTransaction()
                 .add(R.id.cfl_activity_main_ng_content_full, df, NGDetailFragment.TAG)
                 .addToBackStack(null)

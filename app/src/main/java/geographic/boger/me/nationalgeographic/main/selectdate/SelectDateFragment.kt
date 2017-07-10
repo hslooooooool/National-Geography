@@ -1,7 +1,12 @@
 package geographic.boger.me.nationalgeographic.main.selectdate
 
 import android.app.Fragment
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.LinearLayoutCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -17,6 +22,8 @@ import com.lcodecore.tkrefreshlayout.header.bezierlayout.BezierLayout
 import geographic.boger.me.nationalgeographic.R
 import geographic.boger.me.nationalgeographic.core.DisplayProvider
 import geographic.boger.me.nationalgeographic.main.ContentType
+import geographic.boger.me.nationalgeographic.main.ngdetail.FavoriteNGDetailDataSupplier
+import geographic.boger.me.nationalgeographic.util.Timber
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter
 import jp.wasabeef.recyclerview.animators.LandingAnimator
@@ -63,6 +70,14 @@ class SelectDateFragment(
         view!!.findViewById<TextView>(R.id.tv_fragment_select_date_error_icon)
     }
 
+    private val mDataChangedReceive = object : BroadcastReceiver() {
+
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            mPresenter.notifyFavoriteNGDetailDataChanged()
+        }
+
+    }
+
     override var contentType = ContentType.UNSET
         get() {
             return field
@@ -104,11 +119,26 @@ class SelectDateFragment(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initViews()
+        init()
         mPresenter.init(this)
     }
 
-    fun initViews() {
+    override fun onDestroyView() {
+        super.onDestroyView()
+        LocalBroadcastManager
+                .getInstance(activity.applicationContext)
+                .unregisterReceiver(mDataChangedReceive)
+    }
+
+    private fun init() {
+        initViews()
+        LocalBroadcastManager.getInstance(activity.applicationContext)
+                .registerReceiver(
+                        mDataChangedReceive,
+                        IntentFilter(FavoriteNGDetailDataSupplier.ACTION_NG_DETAIL_DATA_CHANGED))
+    }
+
+    private fun initViews() {
         rvContent.adapter = SlideInBottomAnimationAdapter(SelectDateAdapter(albumSelectedListener))
         rvContent.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         rvContent.itemAnimator = LandingAnimator()
@@ -128,6 +158,14 @@ class SelectDateFragment(
 
     override fun getContentView(): View {
         return trlContent
+    }
+
+    override fun refreshFavoriteData(favoriteData: SelectDateAlbumData) {
+        val adapter = (rvContent.adapter as AnimationAdapter).wrappedAdapter as SelectDateAdapter
+        if (adapter.listData.isNotEmpty()) {
+            adapter.listData[0] = favoriteData
+        }
+        adapter.notifyDataSetChanged()
     }
 
     override fun refreshCardData(data: List<SelectDateAlbumData>, append: Boolean) {

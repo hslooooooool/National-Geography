@@ -4,6 +4,8 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.app.Fragment
+import android.content.ContentResolver
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.view.ViewPager
@@ -15,24 +17,26 @@ import android.view.ViewTreeObserver
 import android.view.animation.LinearInterpolator
 import android.view.animation.OvershootInterpolator
 import android.widget.TextView
+import android.widget.Toast
 import geographic.boger.me.nationalgeographic.R
 import geographic.boger.me.nationalgeographic.core.DisplayProvider
+import geographic.boger.me.nationalgeographic.core.NGUtil
 import geographic.boger.me.nationalgeographic.main.ContentType
 import geographic.boger.me.nationalgeographic.main.IActivityMainUIController
 import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateAlbumData
-import geographic.boger.me.nationalgeographic.util.Timber
 import java.util.*
 
 /**
  * Created by BogerChan on 2017/6/30.
  */
 class NGDetailFragment(val data: SelectDateAlbumData? = null,
+                       val offlineData: NGDetailData? = null,
                        val controller: IActivityMainUIController? = null) : Fragment(), INGDetailUI {
     companion object {
         val TAG = "NGDetailFragment"
     }
 
-    private val mPresenter: INGDetailPresenter by lazy { NGDetailPresenterImpl(data!!) }
+    private val mPresenter: INGDetailPresenter by lazy { NGDetailPresenterImpl(data, offlineData) }
 
     private val llcIntroAndMenu by lazy {
         view!!.findViewById<LinearLayoutCompat>(R.id.llc_fragment_ng_detail_intro_and_menu)
@@ -78,6 +82,10 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
         view!!.findViewById<TextView>(R.id.tv_fragment_ng_detail_menu_icon)
     }
 
+    private val tvMenuFavIcon by lazy {
+        view!!.findViewById<TextView>(R.id.tv_fragment_ng_detail_menu_fav_icon)
+    }
+
     private val vMenuDivider by lazy {
         view!!.findViewById<View>(R.id.v_fragment_ng_detail_divider_menu)
     }
@@ -117,8 +125,8 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mPresenter.init(this)
         initView()
+        mPresenter.init(this)
     }
 
     override fun onDestroy() {
@@ -151,7 +159,7 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
         vpContent.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
 
             override fun onPageSelected(position: Int) {
-                updateText(adapter.data, position)
+                updateContent(adapter.data, position)
             }
 
         })
@@ -173,6 +181,18 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
             }
 
         })
+        llcMenuShare.setOnClickListener {
+            mPresenter.shareNGDetailImage(
+                    (vpContent.adapter as NGDetailPageAdapter).data[vpContent.currentItem].url)
+        }
+        llcMenuSave.setOnClickListener {
+            mPresenter.saveNGDetailImage(
+                    (vpContent.adapter as NGDetailPageAdapter).data[vpContent.currentItem].url)
+        }
+        llcMenuFav.setOnClickListener {
+            mPresenter.setNGDetailItemFavoriteState(
+                    (vpContent.adapter as NGDetailPageAdapter).data[vpContent.currentItem])
+        }
     }
 
     override var contentType = ContentType.UNSET
@@ -204,18 +224,22 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
         }
 
     override fun refreshData(data: List<NGDetailPictureData>) {
+        if (data.isEmpty()) {
+            return
+        }
         val adapter = vpContent.adapter as NGDetailPageAdapter
         adapter.data = data
         adapter.notifyDataSetChanged()
         vpContent.currentItem = 0
-        updateText(data, 0)
+        updateContent(data, 0)
     }
 
-    private fun updateText(dataList: List<NGDetailPictureData>, idx: Int) {
+    private fun updateContent(dataList: List<NGDetailPictureData>, idx: Int) {
         val data = dataList[idx]
         tvTitle.text = data.title
         tvPageIdx.text = String.format(Locale.US, "%2d/%2d", idx + 1, dataList.size)
-        tvBody.text = "${data.content} (摄影: ${data.author})"
+        tvBody.text = String.format(Locale.US, getResouceString(R.string.template_detail_text_body), data.content, data.author)
+        setFavoriteButtonState(data.favorite)
     }
 
     private fun setOverlayMenuShown(show: Boolean) {
@@ -316,5 +340,35 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
             }
         })
         ani.start()
+    }
+
+    override fun showTipMessage(msg: String) {
+        if (NGUtil.isUIThread()) {
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+        } else {
+            activity.runOnUiThread {
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun showTipMessage(msgId: Int) {
+        Toast.makeText(context, context.getString(msgId), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun getResouceString(id: Int): String {
+        return context.getString(id)
+    }
+
+    override fun getContentResolver(): ContentResolver {
+        return context.contentResolver
+    }
+
+    override fun sendBroadcast(intent: Intent) {
+        context.sendBroadcast(intent)
+    }
+
+    override fun setFavoriteButtonState(favorite: Boolean) {
+        tvMenuFavIcon.text = if (favorite) "\ue677" else "\ue603"
     }
 }

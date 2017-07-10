@@ -5,4 +5,6 @@ package geographic.boger.me.nationalgeographic.main.selectdate
  */
 interface ISelectDatePresenter {
     fun init(ui: ISelectDateUI)
+
+    fun notifyFavoriteNGDetailDataChanged()
 }

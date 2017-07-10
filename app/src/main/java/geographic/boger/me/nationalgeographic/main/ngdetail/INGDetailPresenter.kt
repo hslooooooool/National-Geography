@@ -5,4 +5,10 @@ package geographic.boger.me.nationalgeographic.main.ngdetail
  */
 interface INGDetailPresenter {
     fun init(ui: INGDetailUI)
+
+    fun shareNGDetailImage(url: String)
+
+    fun saveNGDetailImage(url: String)
+
+    fun setNGDetailItemFavoriteState(data: NGDetailPictureData)
 }
