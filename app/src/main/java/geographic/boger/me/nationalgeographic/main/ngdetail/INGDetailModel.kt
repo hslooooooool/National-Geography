@@ -11,4 +11,6 @@ interface INGDetailModel {
                             onError: (Throwable) -> Unit,
                             onComplete: () -> Unit,
                             onNext: (NGDetailData) -> Unit): Disposable
+
+    fun cancelPendingCall()
 }

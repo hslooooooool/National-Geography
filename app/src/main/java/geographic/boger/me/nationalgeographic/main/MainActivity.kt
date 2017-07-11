@@ -7,7 +7,7 @@ import android.animation.ValueAnimator
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutCompat
 import android.text.TextUtils
 import android.view.View
@@ -18,13 +18,14 @@ import android.widget.ScrollView
 import android.widget.TextView
 import geographic.boger.me.nationalgeographic.BuildConfig
 import geographic.boger.me.nationalgeographic.R
-import geographic.boger.me.nationalgeographic.core.DisplayProvider
+import geographic.boger.me.nationalgeographic.core.LanguageLocalizationHelper
+import geographic.boger.me.nationalgeographic.core.NGActivity
 import geographic.boger.me.nationalgeographic.core.NGRumtime
 import geographic.boger.me.nationalgeographic.main.ngdetail.NGDetailFragment
 import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateAlbumData
 import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateFragment
 
-class MainActivity : AppCompatActivity(), IActivityMainUIController {
+class MainActivity : NGActivity(), IActivityMainUIController {
 
     private enum class MenuState {
         OPEN, CLOSE, BACK
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity(), IActivityMainUIController {
     }
 
     private val tvNGMenu by lazy {
-        findViewById(R.id.tv_activity_main_ng_menu) as TextView
+        findViewById(R.id.icon_activity_main_ng_menu) as TextView
     }
 
     private val ablTitle by lazy {
@@ -55,6 +56,8 @@ class MainActivity : AppCompatActivity(), IActivityMainUIController {
     }
 
     private var mPendingMenuAnimator: Animator? = null
+
+    private var mMenuState = MenuState.CLOSE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,7 +97,8 @@ class MainActivity : AppCompatActivity(), IActivityMainUIController {
     }
 
     override fun onBackPressed() {
-        if (fragmentManager.popBackStackImmediate()) {
+        if (fragmentManager.popBackStackImmediate()
+                || mMenuState == MenuState.OPEN) {
             setMenuState(MenuState.CLOSE)
         } else {
             super.onBackPressed()
@@ -102,26 +106,19 @@ class MainActivity : AppCompatActivity(), IActivityMainUIController {
     }
 
     private fun initView() {
-        tvNGTitle.typeface = DisplayProvider.primaryTypeface
-        tvNGMenu.typeface = DisplayProvider.iconFont
         ablTitle.postDelayed({
             window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }, 800)
         tvNGMenu.text = "\ue665"
         tvNGMenu.setOnClickListener(object : View.OnClickListener {
 
-            private var state = MenuState.CLOSE
-
             override fun onClick(p0: View?) {
                 if ("\ue6d8" == tvNGMenu.text) {
-                    state = MenuState.CLOSE
                     onBackPressed()
-                } else if (state == MenuState.OPEN) {
-                    state = MenuState.CLOSE
-                    setMenuState(state)
+                } else if (mMenuState == MenuState.OPEN) {
+                    setMenuState(MenuState.CLOSE)
                 } else {
-                    state = MenuState.OPEN
-                    setMenuState(state)
+                    setMenuState(MenuState.OPEN)
                 }
             }
         })
@@ -129,9 +126,20 @@ class MainActivity : AppCompatActivity(), IActivityMainUIController {
                 iconLeft = "\ue600",
                 name = getString(R.string.menu_language_settings),
                 iconRight = "\ue615",
-                value = "简",
+                value = getString(R.string.text_language),
                 listener = {
-                    Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
+                    AlertDialog.Builder(this)
+                            .setTitle(R.string.text_language_setting)
+                            .setSingleChoiceItems(
+                                    R.array.language_selection,
+                                    LanguageLocalizationHelper.curType.ordinal,
+                                    { dialog, i ->
+                                        dialog.dismiss()
+                                        LanguageLocalizationHelper
+                                                .apply(this@MainActivity, LanguageLocalizationHelper.Type.values()[i])
+                                    })
+                            .setNegativeButton(R.string.text_cancel, null)
+                            .show()
                 }))
         llcOverlayMenu.addView(createOverlayMenuItem(
                 iconLeft = "\ue6a2",
@@ -186,21 +194,17 @@ class MainActivity : AppCompatActivity(), IActivityMainUIController {
     private fun createOverlayMenuItem(iconLeft: String, name: String, value: String, iconRight: String? = null, listener: (View) -> Unit): View {
         val v = layoutInflater.inflate(R.layout.item_overlay_menu, null)
         v.setOnClickListener(listener)
-        val tvIconLeft = v.findViewById<TextView>(R.id.tv_item_overlay_menu_left_icon)
-        tvIconLeft.typeface = DisplayProvider.iconFont
+        val tvIconLeft = v.findViewById<TextView>(R.id.icon_item_overlay_menu_left)
         tvIconLeft.text = iconLeft
-        val tvIconRight = v.findViewById<TextView>(R.id.tv_item_overlay_menu_right_icon)
-        tvIconRight.typeface = DisplayProvider.iconFont
+        val tvIconRight = v.findViewById<TextView>(R.id.icon_item_overlay_menu_right)
         if (TextUtils.isEmpty(iconRight)) {
             tvIconRight.visibility = View.INVISIBLE
         } else {
             tvIconRight.text = iconRight
         }
         val tvName = v.findViewById<TextView>(R.id.tv_item_overlay_menu_name)
-        tvName.typeface = DisplayProvider.primaryTypeface
         tvName.text = name
         val tvValue = v.findViewById<TextView>(R.id.tv_item_overlay_menu_value)
-        tvValue.typeface = DisplayProvider.primaryTypeface
         tvValue.text = value
         return v
     }
@@ -239,6 +243,7 @@ class MainActivity : AppCompatActivity(), IActivityMainUIController {
                 }
                 svOverlayMenu.pivotX = svOverlayMenu.measuredWidth / 2f
                 svOverlayMenu.pivotY = svOverlayMenu.measuredHeight / 2f
+                mMenuState = state
             }
         })
         val aniMenuButton = ValueAnimator.ofFloat(*range.toFloatArray())

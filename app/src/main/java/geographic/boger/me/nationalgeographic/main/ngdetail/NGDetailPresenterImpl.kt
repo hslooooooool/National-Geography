@@ -152,4 +152,8 @@ class NGDetailPresenterImpl(
             stream?.close()
         }
     }
+
+    override fun destroy() {
+        mModel.cancelPendingCall()
+    }
 }

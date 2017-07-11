@@ -3,7 +3,6 @@ package geographic.boger.me.nationalgeographic.main.ngdetail
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
-import android.app.Fragment
 import android.content.ContentResolver
 import android.content.Intent
 import android.os.Bundle
@@ -20,6 +19,7 @@ import android.widget.TextView
 import android.widget.Toast
 import geographic.boger.me.nationalgeographic.R
 import geographic.boger.me.nationalgeographic.core.DisplayProvider
+import geographic.boger.me.nationalgeographic.core.NGFragment
 import geographic.boger.me.nationalgeographic.core.NGUtil
 import geographic.boger.me.nationalgeographic.main.ContentType
 import geographic.boger.me.nationalgeographic.main.IActivityMainUIController
@@ -31,7 +31,7 @@ import java.util.*
  */
 class NGDetailFragment(val data: SelectDateAlbumData? = null,
                        val offlineData: NGDetailData? = null,
-                       val controller: IActivityMainUIController? = null) : Fragment(), INGDetailUI {
+                       val controller: IActivityMainUIController? = null) : NGFragment(), INGDetailUI {
     companion object {
         val TAG = "NGDetailFragment"
     }
@@ -79,11 +79,11 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
     }
 
     private val tvMenuButton by lazy {
-        view!!.findViewById<TextView>(R.id.tv_fragment_ng_detail_menu_icon)
+        view!!.findViewById<TextView>(R.id.icon_fragment_ng_detail_menu)
     }
 
     private val tvMenuFavIcon by lazy {
-        view!!.findViewById<TextView>(R.id.tv_fragment_ng_detail_menu_fav_icon)
+        view!!.findViewById<TextView>(R.id.icon_fragment_ng_detail_menu_fav)
     }
 
     private val vMenuDivider by lazy {
@@ -95,23 +95,6 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
                 view!!.findViewById<View>(R.id.v_fragment_ng_detail_divider_1),
                 view!!.findViewById<View>(R.id.v_fragment_ng_detail_divider_2),
                 view!!.findViewById<View>(R.id.v_fragment_ng_detail_divider_3)
-        )
-    }
-
-    private val mIconList by lazy {
-        arrayOf(
-                view!!.findViewById<TextView>(R.id.tv_fragment_ng_detail_menu_share_icon),
-                view!!.findViewById<TextView>(R.id.tv_fragment_ng_detail_menu_save_icon),
-                view!!.findViewById<TextView>(R.id.tv_fragment_ng_detail_menu_fav_icon),
-                view!!.findViewById<TextView>(R.id.tv_fragment_ng_detail_menu_icon)
-        )
-    }
-
-    private val mFontList by lazy {
-        arrayOf(
-                view!!.findViewById<TextView>(R.id.tv_fragment_ng_detail_menu_share),
-                view!!.findViewById<TextView>(R.id.tv_fragment_ng_detail_menu_save),
-                view!!.findViewById<TextView>(R.id.tv_fragment_ng_detail_menu_fav)
         )
     }
 
@@ -129,21 +112,17 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
         mPresenter.init(this)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mPresenter.destroy()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         setOverlayMenuShown(true)
     }
 
     fun initView() {
-        tvTitle.typeface = DisplayProvider.primaryTypeface
-        tvPageIdx.typeface = DisplayProvider.primaryTypeface
-        tvBody.typeface = DisplayProvider.primaryTypeface
-        mIconList.forEach {
-            it.typeface = DisplayProvider.iconFont
-        }
-        mFontList.forEach {
-            it.typeface = DisplayProvider.primaryTypeface
-        }
         val adapter = NGDetailPageAdapter()
         adapter.setOnItemClickListener(object : NGDetailPageAdapter.OnItemClickListener {
 

@@ -15,7 +15,7 @@
         app:roundAsCircle="false"
         app:roundedCornerRadius="5dp" />
 
-    <TextView
+    <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
         android:id="@+id/tv_item_select_date"
         style="@style/AppTheme.SelectDateText"
         android:layout_width="match_parent"

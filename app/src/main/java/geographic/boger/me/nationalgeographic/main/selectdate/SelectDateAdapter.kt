@@ -24,10 +24,6 @@ class SelectDateAdapter(val onItemClickListener: (SelectDateAlbumData) -> Unit) 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val sdvContent by lazy { itemView.findViewById<SimpleDraweeView>(R.id.sdv_item_select_date) }
         val tvText by lazy { itemView.findViewById<TextView>(R.id.tv_item_select_date) }
-
-        init {
-            tvText.typeface = DisplayProvider.primaryTypeface
-        }
     }
 
     var listData: MutableList<SelectDateAlbumData> = mutableListOf()

@@ -26,13 +26,13 @@
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+            <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
                 android:id="@+id/tv_fragment_ng_detail_title"
                 style="@style/AppTheme.NGDetailTextTitle"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content" />
-            <TextView
+            <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
                 android:id="@+id/tv_fragment_ng_detail_page_idx"
                 style="@style/AppTheme.NGDetailTextTitle"
                 android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
             android:fadingEdge="none"
             android:scrollbars="none">
 
-            <TextView
+            <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
                 android:id="@+id/tv_fragment_ng_detail_body"
                 style="@style/AppTheme.NGDetailTextBody"
                 android:layout_width="match_parent"
@@ -81,14 +81,14 @@
                 android:layout_weight="2"
                 android:gravity="center">
 
-                <TextView
-                    android:id="@+id/tv_fragment_ng_detail_menu_share_icon"
+                <geographic.boger.me.nationalgeographic.view.IconView
+                    android:id="@+id/icon_fragment_ng_detail_menu_share"
                     style="@style/AppTheme.NGDetailMenuIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="&#xe652;" />
 
-                <TextView
+                <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
                     android:id="@+id/tv_fragment_ng_detail_menu_share"
                     style="@style/AppTheme.NGDetailMenuText"
                     android:layout_width="wrap_content"
@@ -109,14 +109,14 @@
                 android:layout_weight="2"
                 android:gravity="center">
 
-                <TextView
-                    android:id="@+id/tv_fragment_ng_detail_menu_save_icon"
+                <geographic.boger.me.nationalgeographic.view.IconView
+                    android:id="@+id/icon_fragment_ng_detail_menu_save"
                     style="@style/AppTheme.NGDetailMenuIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="&#xe609;" />
 
-                <TextView
+                <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
                     android:id="@+id/tv_fragment_ng_detail_menu_save"
                     style="@style/AppTheme.NGDetailMenuText"
                     android:layout_width="wrap_content"
@@ -137,14 +137,14 @@
                 android:layout_weight="2"
                 android:gravity="center">
 
-                <TextView
-                    android:id="@+id/tv_fragment_ng_detail_menu_fav_icon"
+                <geographic.boger.me.nationalgeographic.view.IconView
+                    android:id="@+id/icon_fragment_ng_detail_menu_fav"
                     style="@style/AppTheme.NGDetailMenuIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="&#xe603;" />
 
-                <TextView
+                <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
                     android:id="@+id/tv_fragment_ng_detail_menu_fav"
                     style="@style/AppTheme.NGDetailMenuText"
                     android:layout_width="wrap_content"
@@ -165,8 +165,8 @@
                 android:layout_height="1dp" />
         </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v7.widget.LinearLayoutCompat>
-    <TextView
-        android:id="@+id/tv_fragment_ng_detail_menu_icon"
+    <geographic.boger.me.nationalgeographic.view.IconView
+        android:id="@+id/icon_fragment_ng_detail_menu"
         style="@style/AppTheme.NGDetailMenuIcon"
         android:layout_width="40dp"
         android:layout_gravity="bottom|right"
@@ -192,8 +192,7 @@
             app:actualImageScaleType="centerCrop"
             app:loading_renderer="DanceLoadingRenderer" />
 
-        <TextView
-            android:id="@+id/tv_fragment_select_date_loading"
+        <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
             style="@style/AppTheme.LoadingText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

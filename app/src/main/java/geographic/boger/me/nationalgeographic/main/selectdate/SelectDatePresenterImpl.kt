@@ -4,6 +4,7 @@ import android.support.design.widget.Snackbar
 import geographic.boger.me.nationalgeographic.R
 import geographic.boger.me.nationalgeographic.main.ContentType
 import geographic.boger.me.nationalgeographic.util.Timber
+import io.reactivex.disposables.Disposable
 
 /**
  * Created by BogerChan on 2017/6/27.
@@ -15,6 +16,8 @@ class SelectDatePresenterImpl : ISelectDatePresenter {
         SelectDateModelImpl()
     }
 
+    private var isDestroyed = false
+
     override fun init(ui: ISelectDateUI) {
         ui.setOnRetryClickListener({
             Timber.d("Click")
@@ -22,6 +25,9 @@ class SelectDatePresenterImpl : ISelectDatePresenter {
         })
         ui.setOnRefreshListener(
                 onRefresh = { v ->
+                    if (isDestroyed) {
+                        return@setOnRefreshListener
+                    }
                     mModel.requestNGDateData(1,
                             onStart = {},
                             onNext = {
@@ -38,7 +44,7 @@ class SelectDatePresenterImpl : ISelectDatePresenter {
                             })
                 },
                 onLoadMore = { v ->
-                    if (!mModel.hasNextPage()) {
+                    if (isDestroyed || !mModel.hasNextPage()) {
                         return@setOnRefreshListener
                     }
                     mModel.requestNGDateData(mModel.currentPage + 1,
@@ -61,6 +67,9 @@ class SelectDatePresenterImpl : ISelectDatePresenter {
     }
 
     private fun firstLoadNGData() {
+        if (isDestroyed) {
+            return
+        }
         mModel.requestNGDateData(1,
                 onStart = {
                     mUI?.contentType = ContentType.LOADING
@@ -80,5 +89,10 @@ class SelectDatePresenterImpl : ISelectDatePresenter {
 
     override fun notifyFavoriteNGDetailDataChanged() {
         mUI!!.refreshFavoriteData(SelectDateAlbumData.getFavoriteAlbumData())
+    }
+
+    override fun destroy() {
+        isDestroyed = true
+        mModel.cancelPendingCall()
     }
 }

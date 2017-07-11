@@ -18,4 +18,6 @@ interface ISelectDateModel {
     var currentPage: Int
 
     fun hasNextPage(): Boolean
+
+    fun cancelPendingCall()
 }

@@ -1,6 +1,5 @@
 package geographic.boger.me.nationalgeographic.main.selectdate
 
-import android.app.Fragment
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -21,9 +20,9 @@ import com.lcodecore.tkrefreshlayout.footer.BallPulseView
 import com.lcodecore.tkrefreshlayout.header.bezierlayout.BezierLayout
 import geographic.boger.me.nationalgeographic.R
 import geographic.boger.me.nationalgeographic.core.DisplayProvider
+import geographic.boger.me.nationalgeographic.core.NGFragment
 import geographic.boger.me.nationalgeographic.main.ContentType
 import geographic.boger.me.nationalgeographic.main.ngdetail.FavoriteNGDetailDataSupplier
-import geographic.boger.me.nationalgeographic.util.Timber
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter
 import jp.wasabeef.recyclerview.animators.LandingAnimator
@@ -32,7 +31,7 @@ import jp.wasabeef.recyclerview.animators.LandingAnimator
  * Created by BogerChan on 2017/6/27.
  */
 class SelectDateFragment(
-        var albumSelectedListener: (SelectDateAlbumData) -> Unit = {}) : Fragment(), ISelectDateUI {
+        var albumSelectedListener: (SelectDateAlbumData) -> Unit = {}) : NGFragment(), ISelectDateUI {
 
     companion object {
         val TAG = "SelectDateFragment"
@@ -67,7 +66,7 @@ class SelectDateFragment(
     }
 
     private val tvErrorIcon by lazy {
-        view!!.findViewById<TextView>(R.id.tv_fragment_select_date_error_icon)
+        view!!.findViewById<TextView>(R.id.icon_fragment_select_date_error_icon)
     }
 
     private val mDataChangedReceive = object : BroadcastReceiver() {
@@ -128,6 +127,7 @@ class SelectDateFragment(
         LocalBroadcastManager
                 .getInstance(activity.applicationContext)
                 .unregisterReceiver(mDataChangedReceive)
+        mPresenter.destroy()
     }
 
     private fun init() {
@@ -151,9 +151,6 @@ class SelectDateFragment(
         ballPulseView.setNormalColor(ResourcesCompat.getColor(resources, R.color.ng_yellow_50, activity.theme))
         ballPulseView.setAnimatingColor(ResourcesCompat.getColor(resources, R.color.ng_yellow_50, activity.theme))
         trlContent.setBottomView(ballPulseView)
-        tvLoading.typeface = DisplayProvider.primaryTypeface
-        tvError.typeface = DisplayProvider.primaryTypeface
-        tvErrorIcon.typeface = DisplayProvider.iconFont
     }
 
     override fun getContentView(): View {

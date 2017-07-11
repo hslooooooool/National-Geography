@@ -1,5 +1,6 @@
 package geographic.boger.me.nationalgeographic.main.selectdate
 
+import geographic.boger.me.nationalgeographic.core.LanguageLocalizationHelper
 import geographic.boger.me.nationalgeographic.core.NGRumtime
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,21 +19,11 @@ class SelectDateModelImpl : ISelectDateModel {
         NGRumtime.retrofit.create(SelectDateNetworkService::class.java)
     }
 
-    private fun mockData(): SelectDateData {
-        fun mockAlbumData(count: String): SelectDateAlbumData {
-            return SelectDateAlbumData("1614", "2017-06-28 每日精选", "http://pic01.bdatu.com/Upload/appsimg/1497946900.jpg", "2017-06-28 00:04:00", "NO", "YES", "1", "dcbd5a5dccb382f6c2708a1720957624", "1622", "1", "1", "2017-06-28 00:00:00")
-        }
-
-        val albumArray = arrayListOf<SelectDateAlbumData>()
-        for (j in 1..10) {
-            albumArray.add(mockAlbumData(4.toString()))
-        }
-        return SelectDateData("4", "1", "13", albumArray)
-    }
-
     override var currentPage: Int = 1
 
     private var totalPage: Int = 0
+
+    private val mPendingCall = mutableListOf<Disposable>()
 
     override fun hasNextPage(): Boolean {
         return currentPage < totalPage
@@ -54,10 +45,14 @@ class SelectDateModelImpl : ISelectDateModel {
                             totalPage = it.pagecount.toInt()
                         }
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeBy(onError, onComplete, onNext)
+                        .subscribeBy(onError, onComplete, {
+                            translate(it)
+                            onNext(it)
+                        })
             }
         }
-        return mSelectDateNetworkService.requestNGDateData(pageIdx)
+        var disposable: Disposable? = null
+        disposable = mSelectDateNetworkService.requestNGDateData(pageIdx)
                 .doOnNext {
                     mSelectDateDataList.add(it)
                     currentPage = it.page.toInt()
@@ -70,7 +65,41 @@ class SelectDateModelImpl : ISelectDateModel {
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(onError, onComplete, onNext)
+                .subscribeBy(
+                        {
+                            onError(it)
+                            mPendingCall.remove(disposable)
+                        },
+                        {
+                            onComplete()
+                            mPendingCall.remove(disposable)
+                        },
+                        {
+                            translate(it)
+                            onNext(it)
+                        })
+        mPendingCall.add(disposable)
+        return disposable
+    }
 
+    private fun translate(text: String): String =
+            LanguageLocalizationHelper.translate(
+                    LanguageLocalizationHelper.Type.SIMPLIFIED_CHINESE,
+                    LanguageLocalizationHelper.curType,
+                    text)
+
+    private fun translate(data: SelectDateData) {
+        data.album.forEach {
+            it.title = translate(it.title)
+        }
+    }
+
+    override fun cancelPendingCall() {
+        mPendingCall.forEach {
+            if (!it.isDisposed) {
+                it.dispose()
+            }
+        }
+        mPendingCall.clear()
     }
 }

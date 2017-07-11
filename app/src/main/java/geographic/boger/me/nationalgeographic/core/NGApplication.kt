@@ -15,6 +15,7 @@ class NGApplication : Application() {
         Fresco.initialize(this)
         DisplayProvider.init(this)
         NGRumtime.init(this)
+        LanguageLocalizationHelper.init(this)
     }
 
     private fun initLog() {

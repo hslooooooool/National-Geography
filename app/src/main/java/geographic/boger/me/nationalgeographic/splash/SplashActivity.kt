@@ -9,9 +9,10 @@ import android.view.animation.ScaleAnimation
 import com.facebook.drawee.view.SimpleDraweeView
 import com.jaredrummler.android.widget.AnimatedSvgView
 import geographic.boger.me.nationalgeographic.R
+import geographic.boger.me.nationalgeographic.core.NGActivity
 import geographic.boger.me.nationalgeographic.main.MainActivity
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : NGActivity() {
 
     private val asvLogo: AnimatedSvgView by lazy { findViewById(R.id.asv_splash_logo) as AnimatedSvgView }
     private val sdvSplash: SimpleDraweeView by lazy { findViewById(R.id.sdv_splash) as SimpleDraweeView }

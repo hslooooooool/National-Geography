@@ -11,4 +11,6 @@ interface INGDetailPresenter {
     fun saveNGDetailImage(url: String)
 
     fun setNGDetailItemFavoriteState(data: NGDetailPictureData)
+
+    fun destroy()
 }

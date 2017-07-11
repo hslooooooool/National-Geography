@@ -39,6 +39,7 @@ dependencies {
     compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'com.github.dinuscxj:LoadingDrawable:db4ceb6b90'
+    compile 'com.zqc.opencc.android.lib:lib-opencc-android:0.8.0@aar'
     testCompile 'junit:junit:4.12'
 }
 repositories {

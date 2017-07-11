@@ -12,19 +12,19 @@
         android:paddingBottom="5dp"
         android:paddingTop="5dp">
 
-        <TextView
-            android:id="@+id/tv_item_overlay_menu_left_icon"
+        <geographic.boger.me.nationalgeographic.view.IconView
+            android:id="@+id/icon_item_overlay_menu_left"
             style="@style/AppTheme.OverlayMenuText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
+        <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
             android:id="@+id/tv_item_overlay_menu_name"
             style="@style/AppTheme.OverlayMenuText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
+        <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
             android:id="@+id/tv_item_overlay_menu_value"
             style="@style/AppTheme.OverlayMenuText"
             android:layout_width="0dp"
@@ -32,8 +32,8 @@
             android:layout_weight="1"
             android:gravity="end" />
 
-        <TextView
-            android:id="@+id/tv_item_overlay_menu_right_icon"
+        <geographic.boger.me.nationalgeographic.view.IconView
+            android:id="@+id/icon_item_overlay_menu_right"
             style="@style/AppTheme.OverlayMenuText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

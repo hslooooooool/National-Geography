@@ -7,4 +7,6 @@ interface ISelectDatePresenter {
     fun init(ui: ISelectDateUI)
 
     fun notifyFavoriteNGDetailDataChanged()
+
+    fun destroy()
 }
