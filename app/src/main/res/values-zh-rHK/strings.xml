@@ -24,10 +24,17 @@
     <string name="text_language">繁體中文(香港)</string>
     <string name="text_language_setting">設置程式語言</string>
     <string name="text_cancel">取消</string>
+    <string name="text_confirm">確認</string>
     <string name="menu_live_paper">動態壁紙</string>
     <string name="menu_update_app">檢查更新</string>
-    <string name="menu_duty">責任免除</string>
-    <string name="menu_author">關於作者</string>
+    <string name="menu_duty">免責聲明</string>
+    <string name="menu_license">開源許可</string>
+    <string name="menu_author">聯絡作者</string>
     <string name="text_splash_title_1">國家地理</string>
     <string name="text_splash_title_2">聚合閱讀</string>
+    <string name="text_duty">
+        <![CDATA[
+            <br/>程式中所有圖片以及內容均歸原作者著作所有, 程式僅供學習交流之用, 嚴禁商業用途, 本人不付任何責任, 如有任何問題請聯繫本人溝通。<br/>
+        ]]>
+    </string>
 </resources>

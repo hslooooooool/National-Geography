@@ -24,6 +24,7 @@ import geographic.boger.me.nationalgeographic.core.NGRumtime
 import geographic.boger.me.nationalgeographic.main.ngdetail.NGDetailFragment
 import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateAlbumData
 import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateFragment
+import geographic.boger.me.nationalgeographic.util.HtmlCompact
 
 class MainActivity : NGActivity(), IActivityMainUIController {
 
@@ -179,8 +180,24 @@ class MainActivity : NGActivity(), IActivityMainUIController {
                 iconRight = "\ue615",
                 value = "",
                 listener = {
-                    Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
-                }, enabled = false))
+                    AlertDialog.Builder(this)
+                            .setTitle(R.string.menu_duty)
+                            .setMessage(HtmlCompact.fromHtml(getString(R.string.text_duty)))
+                            .setPositiveButton(R.string.text_confirm, null)
+                            .show()
+                }))
+        llcOverlayMenu.addView(createOverlayMenuItem(
+                iconLeft = "\ue637",
+                name = getString(R.string.menu_license),
+                iconRight = "\ue615",
+                value = "",
+                listener = {
+                    AlertDialog.Builder(this)
+                            .setTitle(R.string.menu_license)
+                            .setMessage(HtmlCompact.fromHtml(getString(R.string.text_license)))
+                            .setPositiveButton(R.string.text_confirm, null)
+                            .show()
+                }))
         llcOverlayMenu.addView(createOverlayMenuItem(
                 iconLeft = "\ued05",
                 name = getString(R.string.menu_author),

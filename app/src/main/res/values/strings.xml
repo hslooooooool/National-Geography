@@ -23,10 +23,115 @@
     <string name="text_language">简体中文(大陆)</string>
     <string name="text_language_setting">设置显示语言</string>
     <string name="text_cancel">取消</string>
+    <string name="text_confirm">确认</string>
     <string name="menu_live_paper">动态壁纸</string>
     <string name="menu_update_app">检查更新</string>
     <string name="menu_duty">免责声明</string>
-    <string name="menu_author">关于作者</string>
+    <string name="menu_license">开源许可</string>
+    <string name="menu_author">联系作者</string>
     <string name="text_splash_title_1">国家地理</string>
     <string name="text_splash_title_2">聚合阅读</string>
+    <string name="text_duty">
+        <![CDATA[
+            <br/>应用中所有图片以及内容均归原作者著作所有, 应用仅供学习交流之用, 严禁商业用途, 本人不付任何责任, 如有任何问题请联系本人沟通。<br/>
+        ]]>
+    </string>
+    <string name="text_license">
+        <![CDATA[
+        <br/><b>Kotlin</b><br/><br/>
+        Copyright 2010-2017 JetBrains s.r.o.<br/><br/>
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at<br/><br/>
+        http://www.apache.org/licenses/LICENSE-2.0<br/><br/>
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.<br/><br/>
+
+        <b>Fresco</b><br/><br/>
+        Copyright 2015-present, Facebook, Inc. All rights reserved.<br/><br/>
+        Redistribution and use in source and binary forms, with or without modification,
+        are permitted provided that the following conditions are met:<br/>
+         * Redistributions of source code must retain the above copyright notice, this
+         list of conditions and the following disclaimer.<br/>
+         * Redistributions in binary form must reproduce the above copyright notice,
+         this list of conditions and the following disclaimer in the documentation
+         and/or other materials provided with the distribution.<br/>
+         * Neither the name Facebook nor the names of its contributors may be used to
+         endorse or promote products derived from this software without specific
+         prior written permission.<br/><br/>
+
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+        ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+        WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+        DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+        ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+        (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+        LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+        ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+        (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+        SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br/><br/>
+
+        <b>RxKotlin</b><br/><br/>
+        Copyright 2012 Netflix, Inc.<br/><br/>
+        Licensed under the Apache License, Version 2.0 (the "License");
+           you may not use this file except in compliance with the License.
+           You may obtain a copy of the License at<br/><br/>
+           http://www.apache.org/licenses/LICENSE-2.0<br/><br/>
+           Unless required by applicable law or agreed to in writing, software
+           distributed under the License is distributed on an "AS IS" BASIS,
+           WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+           See the License for the specific language governing permissions and
+           limitations under the License.<br/><br/>
+
+       <b>Retrofit</b><br/><br/>
+        Copyright 2013 Square, Inc.<br/><br/>
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at<br/><br/>
+           http://www.apache.org/licenses/LICENSE-2.0<br/><br/>
+           Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.<br/><br/>
+
+        <b>TwinklingRefreshLayout</b><br/><br/>
+        Copyright 2016 lcodecorex<br/><br/>
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at<br/><br/>
+           http://www.apache.org/licenses/LICENSE-2.0<br/><br/>
+           Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.<br/><br/>
+
+        <b>LoadingDrawable</b><br/><br/>
+        Copyright 2015-2019 dinus<br/><br/>
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at<br/><br/>
+           http://www.apache.org/licenses/LICENSE-2.0<br/><br/>
+           Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.<br/><br/>
+
+        <b>Android OpenCC</b><br/><br/>
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at<br/><br/>
+           http://www.apache.org/licenses/LICENSE-2.0<br/><br/>
+           Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.<br/><br/>
+        ]]>
+    </string>
 </resources>
