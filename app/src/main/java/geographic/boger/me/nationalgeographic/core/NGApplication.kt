@@ -19,8 +19,8 @@ class NGApplication : Application() {
     }
 
     private fun initLog() {
-//        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-//        }
+        }
     }
 }
