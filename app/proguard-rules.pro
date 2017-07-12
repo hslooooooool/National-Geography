@@ -12,7 +12,7 @@
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#-keepclassmembers class fqcn.of.java\script.interface.for.webview {
 #   public *;
 #}
 
@@ -24,6 +24,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+-printmapping build/outputs/mapping/release/mapping.txt
+
 -dontwarn okio.**
 -dontwarn javax.annotation.**
 # Platform calls Class.forName on types which do not exist on Android to determine platform.
@@ -34,3 +36,9 @@
 -keepattributes Signature
 # Retain declared checked exceptions for use by a Proxy instance.
 -keepattributes Exceptions
+-keep class sun.misc.Unsafe { *; }
+-keep class geographic.boger.me.nationalgeographic.main.selectdate.SelectDateData { *; }
+-keep class geographic.boger.me.nationalgeographic.main.selectdate.SelectDateAlbumData { *; }
+-keep class geographic.boger.me.nationalgeographic.main.ngdetail.NGDetailData { *; }
+-keep class geographic.boger.me.nationalgeographic.main.ngdetail.NGDetailPictureData { *; }
+-keep class app.dinus.com.loadingdrawable.** { *; }
