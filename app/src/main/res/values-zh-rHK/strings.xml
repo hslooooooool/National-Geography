@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">國家地理聚合</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="daily_recommendation">每日推薦</string>
+    <string name="text_action_bar">NG聚合閱讀</string>
     <string name="tip_load_error">數據加載錯誤, 請檢查網路後重試哦~</string>
     <string name="tip_loading">稍等一下, 精彩馬上來喔~</string>
     <string name="tip_refresh">網路不暢, 請檢查網路後重試哦~</string>w

@@ -9,9 +9,9 @@
         android:id="@+id/sdv_item_select_date"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/item_select_date_image_bg"
+        app:placeholderImageScaleType="centerCrop"
         app:actualImageScaleType="centerCrop"
-        app:placeholderImage="@drawable/ng_logo_pure"
+        app:placeholderImage="@mipmap/placeholder"
         app:roundAsCircle="false"
         app:roundedCornerRadius="5dp" />
 

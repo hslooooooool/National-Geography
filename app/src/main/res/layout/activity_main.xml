@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_action_ng_logo"
-                android:text="@string/daily_recommendation" />
+                android:text="@string/text_action_bar" />
 
             <geographic.boger.me.nationalgeographic.view.IconView
                 android:padding="12dp"

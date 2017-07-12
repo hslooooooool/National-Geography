@@ -47,7 +47,7 @@ class NGDetailPageAdapter(var data: List<NGDetailPictureData> = emptyList()) : P
     fun SimpleDraweeView.reset(): SimpleDraweeView {
         val h = this.hierarchy
         h.actualImageScaleType = ScalingUtils.ScaleType.FIT_CENTER
-        h.setPlaceholderImage(R.drawable.ng_logo_pure, ScalingUtils.ScaleType.CENTER)
+        h.setPlaceholderImage(R.mipmap.placeholder_loading, ScalingUtils.ScaleType.FIT_CENTER)
         controller = null
         return this
     }

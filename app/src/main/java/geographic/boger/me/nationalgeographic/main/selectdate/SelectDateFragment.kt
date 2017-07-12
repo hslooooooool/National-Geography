@@ -144,7 +144,7 @@ class SelectDateFragment(
         rvContent.addItemDecoration(SelectDateItemDecoration())
         val bezierHeaderView = BezierLayout(activity)
         bezierHeaderView.setWaveColor(ResourcesCompat.getColor(resources, R.color.color_gray_50, activity.theme))
-        bezierHeaderView.setRippleColor(ResourcesCompat.getColor(resources, R.color.ng_yellow_50, activity.theme))
+        bezierHeaderView.setRippleColor(ResourcesCompat.getColor(resources, R.color.color_gray_dark, activity.theme))
         trlContent.setHeaderView(bezierHeaderView)
         val ballPulseView = BallPulseView(activity)
         ballPulseView.setNormalColor(ResourcesCompat.getColor(resources, R.color.ng_yellow_50, activity.theme))

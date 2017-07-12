@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">国家地理聚合</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="daily_recommendation">每日推荐</string>
+    <string name="text_action_bar">NG聚合阅读</string>
     <string name="tip_load_error">数据加载失败, 检查网络后再试试~</string>
     <string name="tip_loading">稍等, 精彩马上呈现~</string>
     <string name="tip_refresh">网络不给力, 再刷新试试~</string>
