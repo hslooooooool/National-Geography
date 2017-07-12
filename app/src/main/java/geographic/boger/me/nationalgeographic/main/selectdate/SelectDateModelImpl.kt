@@ -43,6 +43,9 @@ class SelectDateModelImpl : ISelectDateModel {
                         .doOnNext {
                             currentPage = it.page.toInt()
                             totalPage = it.pagecount.toInt()
+                            if (currentPage == 1) {
+                                it.album[0] = NGRumtime.favoriteNGDataSupplier.getFavoriteAlbumData()
+                            }
                         }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(onError, onComplete, onNext)
