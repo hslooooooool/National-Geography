@@ -45,10 +45,7 @@ class SelectDateModelImpl : ISelectDateModel {
                             totalPage = it.pagecount.toInt()
                         }
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeBy(onError, onComplete, {
-                            translate(it)
-                            onNext(it)
-                        })
+                        .subscribeBy(onError, onComplete, onNext)
             }
         }
         var disposable: Disposable? = null
@@ -58,7 +55,7 @@ class SelectDateModelImpl : ISelectDateModel {
                     currentPage = it.page.toInt()
                     totalPage = it.pagecount.toInt()
                     if (currentPage == 1) {
-                        it.album.add(0, SelectDateAlbumData.getFavoriteAlbumData())
+                        it.album.add(0, NGRumtime.favoriteNGDataSupplier.getFavoriteAlbumData())
                     }
                 }
                 .doOnSubscribe { onStart() }
@@ -74,25 +71,11 @@ class SelectDateModelImpl : ISelectDateModel {
                             onComplete()
                             mPendingCall.remove(disposable)
                         },
-                        {
-                            translate(it)
-                            onNext(it)
-                        })
+                        onNext)
         mPendingCall.add(disposable)
         return disposable
     }
 
-    private fun translate(text: String): String =
-            LanguageLocalizationHelper.translate(
-                    LanguageLocalizationHelper.Type.SIMPLIFIED_CHINESE,
-                    LanguageLocalizationHelper.curType,
-                    text)
-
-    private fun translate(data: SelectDateData) {
-        data.album.forEach {
-            it.title = translate(it.title)
-        }
-    }
 
     override fun cancelPendingCall() {
         mPendingCall.forEach {

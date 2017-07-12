@@ -215,9 +215,10 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
 
     private fun updateContent(dataList: List<NGDetailPictureData>, idx: Int) {
         val data = dataList[idx]
-        tvTitle.text = data.title
+        val localeData = data.locale()
+        tvTitle.text = localeData.title
         tvPageIdx.text = String.format(Locale.US, "%2d/%2d", idx + 1, dataList.size)
-        tvBody.text = String.format(Locale.US, getResouceString(R.string.template_detail_text_body), data.content, data.author)
+        tvBody.text = String.format(Locale.US, getResouceString(R.string.template_detail_text_body), localeData.content, localeData.author)
         setFavoriteButtonState(data.favorite)
     }
 

@@ -2,7 +2,9 @@ package geographic.boger.me.nationalgeographic.core
 
 import android.app.Application
 import android.os.Environment
-import geographic.boger.me.nationalgeographic.main.ngdetail.FavoriteNGDetailDataSupplier
+import com.google.gson.GsonBuilder
+import geographic.boger.me.nationalgeographic.main.FavoriteNGDataSupplier
+import geographic.boger.me.nationalgeographic.util.TransientExclusionStrategy
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -24,7 +26,7 @@ object NGRumtime {
         Retrofit.Builder()
                 .client(client)
                 .baseUrl(HOST)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .build()
     }
@@ -35,9 +37,15 @@ object NGRumtime {
 
     lateinit var externalAlbumDir: File
 
-    lateinit var favoriteNGDetailDataSupplier: FavoriteNGDetailDataSupplier
+    lateinit var favoriteNGDataSupplier: FavoriteNGDataSupplier
 
     lateinit var application: Application
+
+    val gson by lazy {
+        GsonBuilder()
+                .addSerializationExclusionStrategy(TransientExclusionStrategy)
+                .create()
+    }
 
     fun init(app: Application) {
         cacheImageDir = File(app.externalCacheDir, "img")
@@ -52,7 +60,14 @@ object NGRumtime {
         if (!externalAlbumDir.exists()) {
             externalAlbumDir.mkdir()
         }
-        favoriteNGDetailDataSupplier = FavoriteNGDetailDataSupplier(app)
+        favoriteNGDataSupplier = FavoriteNGDataSupplier(app)
         application = app
     }
+
+    fun locale(text: String): String =
+            LanguageLocalizationHelper.translate(
+                    LanguageLocalizationHelper.Type.SIMPLIFIED_CHINESE,
+                    LanguageLocalizationHelper.curType,
+                    text)
+
 }

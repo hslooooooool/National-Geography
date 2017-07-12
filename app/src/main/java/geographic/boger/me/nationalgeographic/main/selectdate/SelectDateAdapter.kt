@@ -33,7 +33,8 @@ class SelectDateAdapter(val onItemClickListener: (SelectDateAlbumData) -> Unit) 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         try {
             holder?.sdvContent?.setImageURI(listData[position].url)
-            holder?.tvText?.text = listData[position].title
+            holder?.tvText?.text = listData[position].locale().title
+
         } catch (e: Exception) {
             Timber.e(e)
         }

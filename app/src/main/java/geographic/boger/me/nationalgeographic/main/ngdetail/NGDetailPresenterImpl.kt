@@ -52,7 +52,7 @@ class NGDetailPresenterImpl(
                     ui.contentType = ContentType.CONTENT
                 },
                 onNext = {
-                    NGRumtime.favoriteNGDetailDataSupplier.syncFavoriteState(it)
+                    NGRumtime.favoriteNGDataSupplier.syncFavoriteState(it)
                     ui.refreshData(it.picture)
                 })
         }
@@ -94,7 +94,7 @@ class NGDetailPresenterImpl(
     }
 
     override fun setNGDetailItemFavoriteState(data: NGDetailPictureData) {
-        val supplier = NGRumtime.favoriteNGDetailDataSupplier
+        val supplier = NGRumtime.favoriteNGDataSupplier
         if (data.favorite) {
             data.favorite = false
             if (!supplier.removeNGDetailDataToFavorite(data)) {

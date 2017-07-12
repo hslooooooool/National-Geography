@@ -1,17 +1,22 @@
-package geographic.boger.me.nationalgeographic.main.ngdetail
+package geographic.boger.me.nationalgeographic.main
 
 import android.content.Context
 import android.content.Intent
 import android.support.v4.content.LocalBroadcastManager
 import android.text.TextUtils
-import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import geographic.boger.me.nationalgeographic.R
+import geographic.boger.me.nationalgeographic.core.NGRumtime
+import geographic.boger.me.nationalgeographic.main.ngdetail.NGDetailData
+import geographic.boger.me.nationalgeographic.main.ngdetail.NGDetailPictureData
+import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateAlbumData
 import geographic.boger.me.nationalgeographic.util.Timber
+import java.util.*
 
 /**
  * Created by BogerChan on 2017/7/10.
  */
-class FavoriteNGDetailDataSupplier(val ctx: Context) {
+class FavoriteNGDataSupplier(val ctx: Context) {
 
     companion object {
         val KEY_FAVORITE_NG_DETAIL_DATA = "fav_ng_detail_data"
@@ -21,14 +26,12 @@ class FavoriteNGDetailDataSupplier(val ctx: Context) {
 
     private var mNGDetailData: NGDetailData = NGDetailData("0", ArrayList<NGDetailPictureData>(0))
 
-    private val mGson = Gson()
-
     private var mSP = ctx.getSharedPreferences(ctx.packageName, Context.MODE_PRIVATE)
 
     init {
         val jsonNGDetailData = mSP.getString(KEY_FAVORITE_NG_DETAIL_DATA, null)
         if (!TextUtils.isEmpty(jsonNGDetailData)) {
-            val list = mGson.fromJson<MutableList<NGDetailPictureData>>(
+            val list = NGRumtime.gson.fromJson<MutableList<NGDetailPictureData>>(
                     jsonNGDetailData,
                     object : TypeToken<MutableList<NGDetailPictureData>>() {}.type)
             mNGDetailData.counttotal = list.size.toString()
@@ -43,7 +46,7 @@ class FavoriteNGDetailDataSupplier(val ctx: Context) {
             }
             mNGDetailData.picture.add(data)
             mSP.edit()
-                    .putString(KEY_FAVORITE_NG_DETAIL_DATA, mGson.toJson(mNGDetailData.picture))
+                    .putString(KEY_FAVORITE_NG_DETAIL_DATA, NGRumtime.gson.toJson(mNGDetailData.picture))
                     .apply()
         } catch (e: Exception) {
             Timber.e(e)
@@ -62,7 +65,7 @@ class FavoriteNGDetailDataSupplier(val ctx: Context) {
             }
             mNGDetailData.picture.remove(data)
             mSP.edit()
-                    .putString(KEY_FAVORITE_NG_DETAIL_DATA, mGson.toJson(mNGDetailData.picture))
+                    .putString(KEY_FAVORITE_NG_DETAIL_DATA, NGRumtime.gson.toJson(mNGDetailData.picture))
                     .apply()
         } catch (e: Exception) {
             Timber.e(e)
@@ -75,8 +78,18 @@ class FavoriteNGDetailDataSupplier(val ctx: Context) {
     }
 
     fun getNGDetailData(): NGDetailData {
+        mNGDetailData.picture.forEach {
+            it.clearLocale()
+        }
         return mNGDetailData.copy(picture = mNGDetailData.picture.toMutableList())
     }
+
+    private fun getLastCoverUrl(): String {
+        return if (mNGDetailData.picture.size > 0)
+            mNGDetailData.picture.last().url else ""
+    }
+
+    private fun getImageCount() = mNGDetailData.counttotal
 
     fun syncFavoriteState(data: NGDetailData) {
         val favoriteIdSet = mutableSetOf<String>()
@@ -86,5 +99,15 @@ class FavoriteNGDetailDataSupplier(val ctx: Context) {
         data.picture.forEach {
             it.favorite = favoriteIdSet.contains(it.id)
         }
+    }
+
+    fun getFavoriteAlbumData(): SelectDateAlbumData {
+        return SelectDateAlbumData(
+                "unset",
+                String.format(Locale.getDefault(),
+                        NGRumtime.application.getString(R.string.text_favorite_item_title),
+                        getImageCount()),
+                getLastCoverUrl(), "unset", "unset", "unset", "unset", "unset", "unset",
+                "unset", "unset", "unset")
     }
 }

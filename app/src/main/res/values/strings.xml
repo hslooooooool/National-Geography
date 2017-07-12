@@ -19,8 +19,12 @@
     <string name="tip_save_img_start">正在下载原始图片</string>
     <string name="template_tip_save_img_complete" formatted="false">图片已经保存到 (%s)</string>
     <string name="template_detail_text_body" formatted="false">%s (摄影: %s)</string>
-    <string name="text_favorite_item_title">进入 我的收藏</string>
+    <string name="text_favorite_item_title" formatted="false">进入 我的收藏 (共%s张)</string>
     <string name="text_language">简体中文(大陆)</string>
     <string name="text_language_setting">设置显示语言</string>
     <string name="text_cancel">取消</string>
+    <string name="menu_live_paper">动态壁纸</string>
+    <string name="menu_update_app">检查更新</string>
+    <string name="menu_duty">免责声明</string>
+    <string name="menu_author">关于作者</string>
 </resources>

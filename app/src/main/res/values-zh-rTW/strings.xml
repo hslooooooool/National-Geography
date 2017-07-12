@@ -20,8 +20,12 @@
     <string name="tip_save_img_start">下載原始圖片中</string>
     <string name="template_tip_save_img_complete" formatted="false">圖片已經保存到 (%s)</string>
     <string name="template_detail_text_body" formatted="false">%s (攝影: %s)</string>
-    <string name="text_favorite_item_title">進入 我的收藏</string>
+    <string name="text_favorite_item_title">進入 我的收藏 (共%s張)</string>
     <string name="text_language">繁體中文(台灣)</string>
     <string name="text_language_setting">設置程式語言</string>
     <string name="text_cancel">取消</string>
+    <string name="menu_live_paper">動態壁紙</string>
+    <string name="menu_update_app">檢查更新</string>
+    <string name="menu_duty">責任免除</string>
+    <string name="menu_author">關於作者</string>
 </resources>

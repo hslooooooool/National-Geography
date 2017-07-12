@@ -1,6 +1,5 @@
 package geographic.boger.me.nationalgeographic.main.ngdetail
 
-import geographic.boger.me.nationalgeographic.core.LanguageLocalizationHelper
 import geographic.boger.me.nationalgeographic.core.NGRumtime
 import geographic.boger.me.nationalgeographic.main.selectdate.NGDetailNetworkService
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,23 +27,10 @@ class NGDetailModelImpl : INGDetailModel {
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(onError, onComplete, {
-                    it.picture.forEach {
-                        it.title = translate(it.title)
-                        it.author = translate(it.author)
-                        it.content = translate(it.content)
-                    }
-                    onNext(it)
-                })
+                .subscribeBy(onError, onComplete, onNext)
         disposable = dis
         return dis
     }
-
-    private fun translate(text: String): String =
-            LanguageLocalizationHelper.translate(
-                    LanguageLocalizationHelper.Type.SIMPLIFIED_CHINESE,
-                    LanguageLocalizationHelper.curType,
-                    text)
 
     override fun cancelPendingCall() {
         val dis = disposable

@@ -2,9 +2,9 @@ package geographic.boger.me.nationalgeographic.main.selectdate
 
 import android.support.design.widget.Snackbar
 import geographic.boger.me.nationalgeographic.R
+import geographic.boger.me.nationalgeographic.core.NGRumtime
 import geographic.boger.me.nationalgeographic.main.ContentType
 import geographic.boger.me.nationalgeographic.util.Timber
-import io.reactivex.disposables.Disposable
 
 /**
  * Created by BogerChan on 2017/6/27.
@@ -88,7 +88,7 @@ class SelectDatePresenterImpl : ISelectDatePresenter {
     }
 
     override fun notifyFavoriteNGDetailDataChanged() {
-        mUI!!.refreshFavoriteData(SelectDateAlbumData.getFavoriteAlbumData())
+        mUI!!.refreshFavoriteData(NGRumtime.favoriteNGDataSupplier.getFavoriteAlbumData())
     }
 
     override fun destroy() {

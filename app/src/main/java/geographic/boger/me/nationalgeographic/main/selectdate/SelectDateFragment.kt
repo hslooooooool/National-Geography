@@ -19,10 +19,9 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
 import com.lcodecore.tkrefreshlayout.footer.BallPulseView
 import com.lcodecore.tkrefreshlayout.header.bezierlayout.BezierLayout
 import geographic.boger.me.nationalgeographic.R
-import geographic.boger.me.nationalgeographic.core.DisplayProvider
 import geographic.boger.me.nationalgeographic.core.NGFragment
 import geographic.boger.me.nationalgeographic.main.ContentType
-import geographic.boger.me.nationalgeographic.main.ngdetail.FavoriteNGDetailDataSupplier
+import geographic.boger.me.nationalgeographic.main.FavoriteNGDataSupplier
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter
 import jp.wasabeef.recyclerview.animators.LandingAnimator
@@ -135,7 +134,7 @@ class SelectDateFragment(
         LocalBroadcastManager.getInstance(activity.applicationContext)
                 .registerReceiver(
                         mDataChangedReceive,
-                        IntentFilter(FavoriteNGDetailDataSupplier.ACTION_NG_DETAIL_DATA_CHANGED))
+                        IntentFilter(FavoriteNGDataSupplier.ACTION_NG_DETAIL_DATA_CHANGED))
     }
 
     private fun initViews() {

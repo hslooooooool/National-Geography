@@ -74,7 +74,7 @@ class MainActivity : NGActivity(), IActivityMainUIController {
 
     fun showNGDetailContent(data: SelectDateAlbumData) {
         val offlineData =
-                if (data.id == "unset") NGRumtime.favoriteNGDetailDataSupplier.getNGDetailData() else null
+                if (data.id == "unset") NGRumtime.favoriteNGDataSupplier.getNGDetailData() else null
         if (offlineData != null && offlineData.picture.isEmpty()) {
             Snackbar.make(
                     findViewById(R.id.cfl_activity_main_ng_content_full),
@@ -145,7 +145,7 @@ class MainActivity : NGActivity(), IActivityMainUIController {
                 iconLeft = "\ue6a2",
                 name = getString(R.string.menu_clean_cache),
                 iconRight = "\ue615",
-                value = "未检测到",
+                value = "",
                 listener = {
                     Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
                 }))
@@ -159,15 +159,15 @@ class MainActivity : NGActivity(), IActivityMainUIController {
                 }))
         llcOverlayMenu.addView(createOverlayMenuItem(
                 iconLeft = "\ue65b",
-                name = "动态壁纸",
+                name = getString(R.string.menu_live_paper),
                 iconRight = "\ue615",
                 value = "",
                 listener = {
                     Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
-                }))
+                }, enabled = false))
         llcOverlayMenu.addView(createOverlayMenuItem(
                 iconLeft = "\ue60a",
-                name = "检查更新",
+                name = getString(R.string.menu_update_app),
                 iconRight = "\ue615",
                 value = "v${BuildConfig.VERSION_NAME}",
                 listener = {
@@ -175,23 +175,30 @@ class MainActivity : NGActivity(), IActivityMainUIController {
                 }))
         llcOverlayMenu.addView(createOverlayMenuItem(
                 iconLeft = "\ue62a",
-                name = "免责声明",
+                name = getString(R.string.menu_duty),
                 iconRight = "\ue615",
                 value = "",
                 listener = {
                     Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
-                }))
+                }, enabled = false))
         llcOverlayMenu.addView(createOverlayMenuItem(
                 iconLeft = "\ued05",
-                name = "关于作者",
+                name = getString(R.string.menu_author),
                 iconRight = "\ue615",
-                value = "波哥",
+                value = "BogerChan",
                 listener = {
                     Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
-                }))
+                }, enabled = false))
     }
 
-    private fun createOverlayMenuItem(iconLeft: String, name: String, value: String, iconRight: String? = null, listener: (View) -> Unit): View {
+    private fun createOverlayMenuItem(
+            iconLeft: String,
+            name: String,
+            value: String,
+            iconRight: String? = null,
+            listener: (View) -> Unit,
+            enabled: Boolean = true): View {
+
         val v = layoutInflater.inflate(R.layout.item_overlay_menu, null)
         v.setOnClickListener(listener)
         val tvIconLeft = v.findViewById<TextView>(R.id.icon_item_overlay_menu_left)
@@ -206,6 +213,7 @@ class MainActivity : NGActivity(), IActivityMainUIController {
         tvName.text = name
         val tvValue = v.findViewById<TextView>(R.id.tv_item_overlay_menu_value)
         tvValue.text = value
+        v.isEnabled = enabled
         return v
     }
 
