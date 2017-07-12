@@ -18,18 +18,31 @@
         android:layout_height="match_parent"
         android:background="@drawable/splash_gradient_overlay" />
 
-    <com.jaredrummler.android.widget.AnimatedSvgView
-        android:id="@+id/asv_splash_logo"
+    <android.support.v7.widget.ContentFrameLayout
+        android:id="@+id/cfl_splash_logo"
         android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="40dp"
-        app:animatedSvgFillColors="@array/ng_logo_color"
-        app:animatedSvgFillStart="300"
-        app:animatedSvgFillTime="800"
-        app:animatedSvgGlyphStrings="@array/ng_yellow_path"
-        app:animatedSvgImageSizeX="300"
-        app:animatedSvgImageSizeY="100"
-        app:animatedSvgTraceTime="1200"
-        app:animatedSvgTraceTimePerGlyph="1200" />
+        android:layout_marginBottom="40dp">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="40dp"
+            app:placeholderImageScaleType="centerCrop"
+            app:placeholderImage="@drawable/ng_logo_pure"
+            android:layout_height="40dp" />
+        <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
+            android:layout_width="wrap_content"
+            android:text="@string/text_splash_title_1"
+            android:textSize="18dp"
+            android:layout_gravity="top|end"
+            style="@style/AppTheme.NGTitle"
+            android:layout_height="wrap_content" />
+        <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
+            android:layout_width="wrap_content"
+            android:text="@string/text_splash_title_2"
+            android:textSize="14dp"
+            android:layout_gravity="bottom|end"
+            style="@style/AppTheme.NGTitle"
+            android:layout_height="wrap_content" />
+
+    </android.support.v7.widget.ContentFrameLayout>
 </FrameLayout>

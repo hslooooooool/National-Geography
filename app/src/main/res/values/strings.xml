@@ -27,4 +27,6 @@
     <string name="menu_update_app">检查更新</string>
     <string name="menu_duty">免责声明</string>
     <string name="menu_author">关于作者</string>
+    <string name="text_splash_title_1">国家地理</string>
+    <string name="text_splash_title_2">聚合阅读</string>
 </resources>

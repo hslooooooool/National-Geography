@@ -28,4 +28,6 @@
     <string name="menu_update_app">檢查更新</string>
     <string name="menu_duty">責任免除</string>
     <string name="menu_author">關於作者</string>
+    <string name="text_splash_title_1">國家地理</string>
+    <string name="text_splash_title_2">聚合閱讀</string>
 </resources>
