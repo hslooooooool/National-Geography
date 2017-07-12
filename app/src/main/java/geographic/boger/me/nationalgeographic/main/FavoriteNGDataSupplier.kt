@@ -89,7 +89,7 @@ class FavoriteNGDataSupplier(val ctx: Context) {
             mNGDetailData.picture.last().url else ""
     }
 
-    private fun getImageCount() = mNGDetailData.counttotal
+    private fun getImageCount() = mNGDetailData.picture.size
 
     fun syncFavoriteState(data: NGDetailData) {
         val favoriteIdSet = mutableSetOf<String>()
