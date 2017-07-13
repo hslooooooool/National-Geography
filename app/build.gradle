@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'bugly'
 
 def localProperties = new Properties()
 localProperties.load(project.rootProject.file('local.properties')
@@ -38,7 +39,7 @@ android {
             //设置支持的SO库架构
             abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
-        resValue 'string', 'app_key_bugly', localProperties.getProperty('appKeyBugly')
+        resValue 'string', 'app_id_bugly', localProperties.getProperty('appIdBugly')
     }
 }
 
@@ -70,6 +71,7 @@ repositories {
     mavenCentral()
 }
 
-//task generateConfigFile(dependsOn: ) {
-//
-//}
+bugly {
+    appId = localProperties.getProperty('appIdBugly') // 注册时分配的App ID
+    appKey = localProperties.getProperty('appKeyBugly') // 注册时分配的App Key
+}

@@ -25,14 +25,14 @@ class NGApplication : Application() {
     }
 
     private fun initBugly() {
-        val appKeyBugly = getString(R.string.app_key_bugly)
+        val appKeyBugly = getString(R.string.app_id_bugly)
         if (!TextUtils.isEmpty(appKeyBugly)) {
             Bugly.init(this, appKeyBugly, BuildConfig.DEBUG)
         }
         Beta.canShowUpgradeActs.add(MainActivity::class.java)
         Beta.autoDownloadOnWifi = true
         Beta.autoCheckUpgrade = true
-        
+
     }
 
     private fun initLog() {
