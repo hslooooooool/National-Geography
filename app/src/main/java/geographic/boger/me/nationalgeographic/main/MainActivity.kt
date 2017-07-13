@@ -4,6 +4,8 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.Snackbar
@@ -25,6 +27,7 @@ import geographic.boger.me.nationalgeographic.main.ngdetail.NGDetailFragment
 import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateAlbumData
 import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateFragment
 import geographic.boger.me.nationalgeographic.util.HtmlCompact
+import java.util.*
 
 class MainActivity : NGActivity(), IActivityMainUIController {
 
@@ -142,37 +145,37 @@ class MainActivity : NGActivity(), IActivityMainUIController {
                             .setNegativeButton(R.string.text_cancel, null)
                             .show()
                 }))
-        llcOverlayMenu.addView(createOverlayMenuItem(
-                iconLeft = "\ue6a2",
-                name = getString(R.string.menu_clean_cache),
-                iconRight = "\ue615",
-                value = "",
-                listener = {
-                    Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
-                }))
-        llcOverlayMenu.addView(createOverlayMenuItem(
-                iconLeft = "\ue609",
-                name = getString(R.string.menu_download_offline),
-                iconRight = "\ue615",
-                value = "",
-                listener = {
-                    Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
-                }))
-        llcOverlayMenu.addView(createOverlayMenuItem(
-                iconLeft = "\ue65b",
-                name = getString(R.string.menu_live_paper),
-                iconRight = "\ue615",
-                value = "",
-                listener = {
-                    Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
-                }, enabled = false))
+//        llcOverlayMenu.addView(createOverlayMenuItem(
+//                iconLeft = "\ue6a2",
+//                name = getString(R.string.menu_clean_cache),
+//                iconRight = "\ue615",
+//                value = "",
+//                listener = {
+//                    Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
+//                }))
+//        llcOverlayMenu.addView(createOverlayMenuItem(
+//                iconLeft = "\ue609",
+//                name = getString(R.string.menu_download_offline),
+//                iconRight = "\ue615",
+//                value = "",
+//                listener = {
+//                    Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
+//                }))
+//        llcOverlayMenu.addView(createOverlayMenuItem(
+//                iconLeft = "\ue65b",
+//                name = getString(R.string.menu_live_paper),
+//                iconRight = "\ue615",
+//                value = "",
+//                listener = {
+//                    Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
+//                }, enabled = false))
         llcOverlayMenu.addView(createOverlayMenuItem(
                 iconLeft = "\ue60a",
                 name = getString(R.string.menu_update_app),
                 iconRight = "\ue615",
                 value = "v${BuildConfig.VERSION_NAME}",
                 listener = {
-                    Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
+                    jumpToMarket()
                 }))
         llcOverlayMenu.addView(createOverlayMenuItem(
                 iconLeft = "\ue62a",
@@ -204,8 +207,8 @@ class MainActivity : NGActivity(), IActivityMainUIController {
                 iconRight = "\ue615",
                 value = "BogerChan",
                 listener = {
-                    Snackbar.make(it, getString(R.string.tip_unsupport), Snackbar.LENGTH_SHORT).show()
-                }, enabled = false))
+                    mailToAuthor()
+                }))
     }
 
     private fun createOverlayMenuItem(
@@ -301,5 +304,24 @@ class MainActivity : NGActivity(), IActivityMainUIController {
         }
 
         animSet.start()
+    }
+
+    private fun jumpToMarket() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("market://details?id=geographic.boger.me.nationalgeographic")
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(Intent.createChooser(intent, getString(R.string.menu_update_app)))
+    }
+
+    private fun mailToAuthor() {
+        val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:bogerchan@hotmail.com"))
+        intent.putExtra(Intent.EXTRA_SUBJECT,
+                String.format(
+                        Locale.getDefault(),
+                        getString(R.string.text_mail_subject),
+                        getString(R.string.app_name),
+                        BuildConfig.VERSION_NAME))
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 }

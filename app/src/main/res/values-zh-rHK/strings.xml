@@ -32,6 +32,7 @@
     <string name="menu_author">聯絡作者</string>
     <string name="text_splash_title_1">國家地理</string>
     <string name="text_splash_title_2">聚合閱讀</string>
+    <string name="text_mail_subject" formatted="false">程式(%s - %s)的問題反饋</string>
     <string name="text_duty">
         <![CDATA[
             <br/>程式中所有圖片以及內容均歸原作者著作所有, 程式僅供學習交流之用, 嚴禁商業用途, 本人不付任何責任, 如有任何問題請聯繫本人溝通。<br/>

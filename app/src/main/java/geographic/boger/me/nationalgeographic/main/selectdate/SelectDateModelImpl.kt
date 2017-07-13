@@ -1,6 +1,5 @@
 package geographic.boger.me.nationalgeographic.main.selectdate
 
-import geographic.boger.me.nationalgeographic.core.LanguageLocalizationHelper
 import geographic.boger.me.nationalgeographic.core.NGRumtime
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

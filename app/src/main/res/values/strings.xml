@@ -31,6 +31,7 @@
     <string name="menu_author">联系作者</string>
     <string name="text_splash_title_1">国家地理</string>
     <string name="text_splash_title_2">聚合阅读</string>
+    <string name="text_mail_subject" formatted="false">应用(%s - %s)的问题反馈</string>
     <string name="text_duty">
         <![CDATA[
             <br/>应用中所有图片以及内容均归原作者著作所有, 应用仅供学习交流之用, 严禁商业用途, 本人不付任何责任, 如有任何问题请联系本人沟通。<br/>
