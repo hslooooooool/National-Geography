@@ -13,7 +13,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0.0-beta.1"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
@@ -32,6 +32,13 @@ android {
                     'proguard-rules.pro', 'proguard-fresco.pro'
             signingConfig signingConfigs.release
         }
+    }
+    defaultConfig {
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+        resValue 'string', 'app_key_bugly', localProperties.getProperty('appKeyBugly')
     }
 }
 
@@ -54,8 +61,15 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'com.github.dinuscxj:LoadingDrawable:db4ceb6b90'
     compile 'com.zqc.opencc.android.lib:lib-opencc-android:0.8.0@aar'
+    //bugly
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
     testCompile 'junit:junit:4.12'
 }
 repositories {
     mavenCentral()
 }
+
+//task generateConfigFile(dependsOn: ) {
+//
+//}

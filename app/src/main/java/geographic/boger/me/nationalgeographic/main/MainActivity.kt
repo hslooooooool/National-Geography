@@ -18,6 +18,7 @@ import android.view.animation.LinearInterpolator
 import android.view.animation.OvershootInterpolator
 import android.widget.ScrollView
 import android.widget.TextView
+import com.tencent.bugly.beta.Beta
 import geographic.boger.me.nationalgeographic.BuildConfig
 import geographic.boger.me.nationalgeographic.R
 import geographic.boger.me.nationalgeographic.core.LanguageLocalizationHelper
@@ -175,7 +176,7 @@ class MainActivity : NGActivity(), IActivityMainUIController {
                 iconRight = "\ue615",
                 value = "v${BuildConfig.VERSION_NAME}",
                 listener = {
-                    jumpToMarket()
+                    checkUpdate()
                 }))
         llcOverlayMenu.addView(createOverlayMenuItem(
                 iconLeft = "\ue62a",
@@ -306,11 +307,12 @@ class MainActivity : NGActivity(), IActivityMainUIController {
         animSet.start()
     }
 
-    private fun jumpToMarket() {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse("market://details?id=geographic.boger.me.nationalgeographic")
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(Intent.createChooser(intent, getString(R.string.menu_update_app)))
+    private fun checkUpdate() {
+//        val intent = Intent(Intent.ACTION_VIEW)
+//        intent.data = Uri.parse("market://details?id=geographic.boger.me.nationalgeographic")
+//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//        startActivity(Intent.createChooser(intent, getString(R.string.menu_update_app)))
+        Beta.checkUpgrade()
     }
 
     private fun mailToAuthor() {

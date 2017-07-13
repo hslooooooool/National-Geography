@@ -42,3 +42,7 @@
 -keep class geographic.boger.me.nationalgeographic.main.ngdetail.NGDetailData { *; }
 -keep class geographic.boger.me.nationalgeographic.main.ngdetail.NGDetailPictureData { *; }
 -keep class app.dinus.com.loadingdrawable.** { *; }
+
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+-keep class android.support.**{*;}
