@@ -324,28 +324,28 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
 
     override fun showTipMessage(msg: String) {
         if (NGUtil.isUIThread()) {
-            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
         } else {
             activity.runOnUiThread {
-                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     override fun showTipMessage(msgId: Int) {
-        Toast.makeText(context, context.getString(msgId), Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, activity.getString(msgId), Toast.LENGTH_SHORT).show()
     }
 
     override fun getResouceString(id: Int): String {
-        return context.getString(id)
+        return activity.getString(id)
     }
 
     override fun getContentResolver(): ContentResolver {
-        return context.contentResolver
+        return activity.contentResolver
     }
 
     override fun sendBroadcast(intent: Intent) {
-        context.sendBroadcast(intent)
+        activity.sendBroadcast(intent)
     }
 
     override fun setFavoriteButtonState(favorite: Boolean) {
