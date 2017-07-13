@@ -5,6 +5,7 @@ import android.text.TextUtils
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
+import com.tencent.bugly.crashreport.CrashReport
 import geographic.boger.me.nationalgeographic.BuildConfig
 import geographic.boger.me.nationalgeographic.R
 import geographic.boger.me.nationalgeographic.main.MainActivity
@@ -32,7 +33,7 @@ class NGApplication : Application() {
         Beta.canShowUpgradeActs.add(MainActivity::class.java)
         Beta.autoDownloadOnWifi = true
         Beta.autoCheckUpgrade = true
-
+        CrashReport.setIsDevelopmentDevice(this, BuildConfig.DEBUG)
     }
 
     private fun initLog() {
