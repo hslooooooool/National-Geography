@@ -118,6 +118,7 @@ class SelectDateFragment(
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         init()
+        mPresenter.restoreDataIfNeed(savedInstanceState)
         mPresenter.init(this)
     }
 
@@ -127,6 +128,11 @@ class SelectDateFragment(
                 .getInstance(activity.applicationContext)
                 .unregisterReceiver(mDataChangedReceive)
         mPresenter.destroy()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        mPresenter.onSaveInstanceState(outState)
     }
 
     private fun init() {

@@ -1,5 +1,7 @@
 package geographic.boger.me.nationalgeographic.main.selectdate
 
+import android.os.Bundle
+
 /**
  * Created by BogerChan on 2017/6/27.
  */
@@ -9,4 +11,9 @@ interface ISelectDatePresenter {
     fun notifyFavoriteNGDetailDataChanged()
 
     fun destroy()
+
+    fun onSaveInstanceState(outState: Bundle?)
+
+    fun restoreDataIfNeed(savedInstanceState: Bundle?)
+
 }

@@ -1,5 +1,6 @@
 package geographic.boger.me.nationalgeographic.main.ngdetail
 
+import android.os.Bundle
 import io.reactivex.disposables.Disposable
 
 /**
@@ -13,4 +14,8 @@ interface INGDetailModel {
                             onNext: (NGDetailData) -> Unit): Disposable
 
     fun cancelPendingCall()
+
+    fun onSaveInstanceState(outState: Bundle?)
+
+    fun restoreDataIfNeed(savedInstanceState: Bundle?)
 }

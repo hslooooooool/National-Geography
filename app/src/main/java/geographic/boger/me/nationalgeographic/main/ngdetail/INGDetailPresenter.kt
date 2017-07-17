@@ -1,5 +1,7 @@
 package geographic.boger.me.nationalgeographic.main.ngdetail
 
+import android.os.Bundle
+
 /**
  * Created by BogerChan on 2017/6/30.
  */
@@ -13,4 +15,8 @@ interface INGDetailPresenter {
     fun setNGDetailItemFavoriteState(data: NGDetailPictureData)
 
     fun destroy()
+
+    fun onSaveInstanceState(outState: Bundle?)
+
+    fun restoreDataIfNeed(savedInstanceState: Bundle?)
 }

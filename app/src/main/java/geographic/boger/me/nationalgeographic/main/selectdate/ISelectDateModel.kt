@@ -1,5 +1,6 @@
 package geographic.boger.me.nationalgeographic.main.selectdate
 
+import android.os.Bundle
 import io.reactivex.disposables.Disposable
 
 /**
@@ -20,4 +21,10 @@ interface ISelectDateModel {
     fun hasNextPage(): Boolean
 
     fun cancelPendingCall()
+
+    fun onSaveInstanceState(outState: Bundle?)
+
+    fun restoreDataIfNeed(savedInstanceState: Bundle?)
+
+    fun clearCache()
 }

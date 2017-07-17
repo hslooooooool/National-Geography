@@ -1,5 +1,6 @@
 package geographic.boger.me.nationalgeographic.main.selectdate
 
+import android.os.Bundle
 import android.support.design.widget.Snackbar
 import geographic.boger.me.nationalgeographic.R
 import geographic.boger.me.nationalgeographic.core.NGRumtime
@@ -28,6 +29,7 @@ class SelectDatePresenterImpl : ISelectDatePresenter {
                     if (isDestroyed) {
                         return@setOnRefreshListener
                     }
+                    mModel.clearCache()
                     mModel.requestNGDateData(1,
                             onStart = {},
                             onNext = {
@@ -94,5 +96,13 @@ class SelectDatePresenterImpl : ISelectDatePresenter {
     override fun destroy() {
         isDestroyed = true
         mModel.cancelPendingCall()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        mModel.onSaveInstanceState(outState)
+    }
+
+    override fun restoreDataIfNeed(savedInstanceState: Bundle?) {
+        mModel.restoreDataIfNeed(savedInstanceState)
     }
 }

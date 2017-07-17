@@ -1,5 +1,6 @@
 package geographic.boger.me.nationalgeographic.main.selectdate
 
+import android.os.Bundle
 import geographic.boger.me.nationalgeographic.core.NGRumtime
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,10 +14,12 @@ import io.reactivex.schedulers.Schedulers
 
 class SelectDateModelImpl : ISelectDateModel {
 
-    private val mSelectDateDataList = arrayListOf<SelectDateData>()
+    private var mSelectDateDataList = arrayListOf<SelectDateData>()
     private val mSelectDateNetworkService by lazy {
         NGRumtime.retrofit.create(SelectDateNetworkService::class.java)
     }
+
+    private val KEY_MODEL_SELECT_DATE = "key_model_select_date"
 
     override var currentPage: Int = 1
 
@@ -86,5 +89,25 @@ class SelectDateModelImpl : ISelectDateModel {
             }
         }
         mPendingCall.clear()
+    }
+
+    override fun clearCache() {
+        mSelectDateDataList.clear()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        if (outState == null) {
+            return
+        }
+        outState.putSerializable(KEY_MODEL_SELECT_DATE, mSelectDateDataList)
+    }
+
+    override fun restoreDataIfNeed(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null
+                || !savedInstanceState.containsKey(KEY_MODEL_SELECT_DATE)) {
+            return
+        }
+        mSelectDateDataList = savedInstanceState
+                .getSerializable(KEY_MODEL_SELECT_DATE) as ArrayList<SelectDateData>
     }
 }

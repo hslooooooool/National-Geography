@@ -3,6 +3,7 @@ package geographic.boger.me.nationalgeographic.main.ngdetail
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Bundle
 import com.facebook.common.executors.CallerThreadExecutor
 import com.facebook.common.references.CloseableReference
 import com.facebook.datasource.DataSource
@@ -14,7 +15,6 @@ import geographic.boger.me.nationalgeographic.R
 import geographic.boger.me.nationalgeographic.core.NGRumtime
 import geographic.boger.me.nationalgeographic.core.NGUtil
 import geographic.boger.me.nationalgeographic.main.ContentType
-import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateAlbumData
 import geographic.boger.me.nationalgeographic.util.Timber
 import java.io.File
 import java.io.IOException
@@ -25,9 +25,7 @@ import java.util.*
  * Created by BogerChan on 2017/6/30.
  */
 
-class NGDetailPresenterImpl(
-        val data: SelectDateAlbumData? = null,
-        val offlineData: NGDetailData? = null) : INGDetailPresenter {
+class NGDetailPresenterImpl : INGDetailPresenter {
 
     private var mUI: INGDetailUI? = null
 
@@ -37,24 +35,24 @@ class NGDetailPresenterImpl(
 
     override fun init(ui: INGDetailUI) {
         mUI = ui
-        if (offlineData != null) {
-            ui.refreshData(offlineData.picture)
+        if (ui.hasOfflineData()) {
+            ui.refreshData(ui.getOfflineData().picture)
             ui.contentType = ContentType.CONTENT
         } else {
-        mModel.requestNGDetailData(data!!.id,
-                onStart = {
-                    ui.contentType = ContentType.LOADING
-                },
-                onError = {
-                    ui.contentType = ContentType.ERROR
-                },
-                onComplete = {
-                    ui.contentType = ContentType.CONTENT
-                },
-                onNext = {
-                    NGRumtime.favoriteNGDataSupplier.syncFavoriteState(it)
-                    ui.refreshData(it.picture)
-                })
+            mModel.requestNGDetailData(ui.getNGDetailDataId(),
+                    onStart = {
+                        ui.contentType = ContentType.LOADING
+                    },
+                    onError = {
+                        ui.contentType = ContentType.ERROR
+                    },
+                    onComplete = {
+                        ui.contentType = ContentType.CONTENT
+                    },
+                    onNext = {
+                        NGRumtime.favoriteNGDataSupplier.syncFavoriteState(it)
+                        ui.refreshData(it.picture)
+                    })
         }
     }
 
@@ -155,5 +153,13 @@ class NGDetailPresenterImpl(
 
     override fun destroy() {
         mModel.cancelPendingCall()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        mModel.onSaveInstanceState(outState)
+    }
+
+    override fun restoreDataIfNeed(savedInstanceState: Bundle?) {
+        mModel.restoreDataIfNeed(savedInstanceState)
     }
 }

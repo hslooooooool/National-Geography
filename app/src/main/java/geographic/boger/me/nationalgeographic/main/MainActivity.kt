@@ -88,10 +88,8 @@ class MainActivity : NGActivity(), IActivityMainUIController {
                     .show()
             return
         }
-        val df = NGDetailFragment(
-                data = data,
-                controller = this,
-                offlineData = offlineData)
+        val df = NGDetailFragment()
+        df.initData(data.id, offlineData)
         fragmentManager.beginTransaction()
                 .add(R.id.cfl_activity_main_ng_content_full, df, NGDetailFragment.TAG)
                 .addToBackStack(null)

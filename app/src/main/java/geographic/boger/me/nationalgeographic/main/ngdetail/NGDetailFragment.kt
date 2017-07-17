@@ -23,20 +23,20 @@ import geographic.boger.me.nationalgeographic.core.NGFragment
 import geographic.boger.me.nationalgeographic.core.NGUtil
 import geographic.boger.me.nationalgeographic.main.ContentType
 import geographic.boger.me.nationalgeographic.main.IActivityMainUIController
-import geographic.boger.me.nationalgeographic.main.selectdate.SelectDateAlbumData
+import java.io.Serializable
 import java.util.*
 
 /**
  * Created by BogerChan on 2017/6/30.
  */
-class NGDetailFragment(val data: SelectDateAlbumData? = null,
-                       val offlineData: NGDetailData? = null,
-                       val controller: IActivityMainUIController? = null) : NGFragment(), INGDetailUI {
+class NGDetailFragment : NGFragment(), INGDetailUI {
     companion object {
         val TAG = "NGDetailFragment"
+
+        val KEY_FRAGMENT_NGDETAIL_INTERNAL_DATA = "key_fragment_ngdetail_internal_data"
     }
 
-    private val mPresenter: INGDetailPresenter by lazy { NGDetailPresenterImpl(data, offlineData) }
+    private val mPresenter: INGDetailPresenter by lazy { NGDetailPresenterImpl() }
 
     private val llcIntroAndMenu by lazy {
         view!!.findViewById<LinearLayoutCompat>(R.id.llc_fragment_ng_detail_intro_and_menu)
@@ -102,14 +102,24 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
 
     private var mPendingOverlayAnimator: Animator? = null
 
+    private lateinit var mMainUIController: IActivityMainUIController
+
+    private class InternalData(var id: String? = null,
+                               var offlineData: NGDetailData? = null) : Serializable
+
+    private lateinit var mInternalData: InternalData
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater!!.inflate(R.layout.fragment_ng_detail, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        restoreDataIfNeed(savedInstanceState)
+        mPresenter.restoreDataIfNeed(savedInstanceState)
         initView()
         mPresenter.init(this)
+        mMainUIController = activity as IActivityMainUIController
     }
 
     override fun onDestroyView() {
@@ -120,6 +130,27 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
     override fun onDestroy() {
         super.onDestroy()
         setOverlayMenuShown(true)
+    }
+
+    private fun restoreDataIfNeed(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null
+                || !savedInstanceState.containsKey(KEY_FRAGMENT_NGDETAIL_INTERNAL_DATA)) {
+            return
+        }
+        mInternalData = savedInstanceState.getSerializable(KEY_FRAGMENT_NGDETAIL_INTERNAL_DATA) as InternalData
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        mPresenter.onSaveInstanceState(outState)
+        if (outState == null) {
+            return
+        }
+        outState.putSerializable(KEY_FRAGMENT_NGDETAIL_INTERNAL_DATA, mInternalData)
+    }
+
+    fun initData(id: String?, offlineData: NGDetailData?) {
+        mInternalData = InternalData(id, offlineData)
     }
 
     fun initView() {
@@ -224,7 +255,7 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
 
     private fun setOverlayMenuShown(show: Boolean) {
         mPendingOverlayAnimator?.cancel()
-        val titleBar = controller!!.getTitleBar()
+        val titleBar = mMainUIController.getTitleBar()
         val range = if (show) arrayOf(titleBar.alpha, 1f) else arrayOf(titleBar.alpha, 0f)
         val ani = ValueAnimator.ofFloat(*range.toFloatArray())
         ani.duration = 300
@@ -350,5 +381,17 @@ class NGDetailFragment(val data: SelectDateAlbumData? = null,
 
     override fun setFavoriteButtonState(favorite: Boolean) {
         tvMenuFavIcon.text = if (favorite) "\ue677" else "\ue603"
+    }
+
+    override fun hasOfflineData(): Boolean {
+        return mInternalData.offlineData != null
+    }
+
+    override fun getOfflineData(): NGDetailData {
+        return mInternalData.offlineData!!
+    }
+
+    override fun getNGDetailDataId(): String {
+        return mInternalData.id!!
     }
 }

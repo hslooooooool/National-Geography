@@ -25,4 +25,10 @@ interface INGDetailUI {
     fun sendBroadcast(intent: Intent)
 
     fun setFavoriteButtonState(favorite: Boolean)
+
+    fun hasOfflineData(): Boolean
+
+    fun getOfflineData(): NGDetailData
+
+    fun getNGDetailDataId(): String
 }
