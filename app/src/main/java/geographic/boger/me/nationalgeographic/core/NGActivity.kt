@@ -9,6 +9,6 @@ import android.support.v7.app.AppCompatActivity
 open class NGActivity : AppCompatActivity() {
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(
-                LanguageLocalizationHelper.createLocalChangeSupportContext(newBase!!))
+                LocalizationWorker.createLocalChangeSupportContext(newBase!!))
     }
 }

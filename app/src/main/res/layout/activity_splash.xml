@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:mContext="geographic.boger.me.nationalgeographic.splash.SplashActivity">
+    tools:mContext="geographic.boger.me.nationalgeographic.biz.splash.SplashActivity">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdv_splash"
@@ -29,14 +29,14 @@
             app:placeholderImageScaleType="centerCrop"
             app:placeholderImage="@drawable/ng_logo_pure"
             android:layout_height="40dp" />
-        <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
+        <geographic.boger.me.nationalgeographic.view.SealedTextView
             android:layout_width="wrap_content"
             android:text="@string/text_splash_title_1"
             android:textSize="18dp"
             android:layout_gravity="top|end"
             style="@style/AppTheme.NGTitle"
             android:layout_height="wrap_content" />
-        <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
+        <geographic.boger.me.nationalgeographic.view.SealedTextView
             android:layout_width="wrap_content"
             android:text="@string/text_splash_title_2"
             android:textSize="14dp"

@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".splash.SplashActivity"
+            android:name="geographic.boger.me.nationalgeographic.biz.splash.SplashActivity"
             android:configChanges="orientation"
             android:theme="@style/AppTheme.Full">
             <intent-filter>
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".main.MainActivity"
+            android:name="geographic.boger.me.nationalgeographic.biz.common.MainActivity"
             android:configChanges="orientation"
             android:theme="@style/AppTheme.Full" />
     </application>

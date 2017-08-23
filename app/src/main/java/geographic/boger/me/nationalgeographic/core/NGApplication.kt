@@ -8,7 +8,7 @@ import com.tencent.bugly.beta.Beta
 import com.tencent.bugly.crashreport.CrashReport
 import geographic.boger.me.nationalgeographic.BuildConfig
 import geographic.boger.me.nationalgeographic.R
-import geographic.boger.me.nationalgeographic.main.MainActivity
+import geographic.boger.me.nationalgeographic.biz.common.MainActivity
 import geographic.boger.me.nationalgeographic.util.Timber
 
 /**
@@ -19,9 +19,9 @@ class NGApplication : Application() {
         super.onCreate()
         initLog()
         Fresco.initialize(this)
-        DisplayProvider.init(this)
+        AppConfiguration.init(this)
         NGRumtime.init(this)
-        LanguageLocalizationHelper.init(this)
+        LocalizationWorker.prepare(this)
         initBugly()
     }
 

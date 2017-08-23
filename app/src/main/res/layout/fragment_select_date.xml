@@ -16,14 +16,14 @@
         android:orientation="vertical"
         android:visibility="invisible">
 
-        <geographic.boger.me.nationalgeographic.view.IconView
+        <geographic.boger.me.nationalgeographic.view.SealedIconFont
             android:id="@+id/icon_fragment_select_date_error_icon"
             style="@style/AppTheme.IconText"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:text="&#xe605;" />
 
-        <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
+        <geographic.boger.me.nationalgeographic.view.SealedTextView
             android:id="@+id/tv_fragment_select_date_error"
             style="@style/AppTheme.LoadingText"
             android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
             android:layout_height="80dp"
             app:loading_renderer="DanceLoadingRenderer" />
 
-        <geographic.boger.me.nationalgeographic.view.LocalTypefaceTextView
+        <geographic.boger.me.nationalgeographic.view.SealedTextView
             android:id="@+id/tv_fragment_select_date_loading"
             style="@style/AppTheme.LoadingText"
             android:layout_width="wrap_content"

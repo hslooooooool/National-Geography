@@ -3,7 +3,7 @@ package geographic.boger.me.nationalgeographic.core
 import android.app.Application
 import android.os.Environment
 import com.google.gson.GsonBuilder
-import geographic.boger.me.nationalgeographic.main.FavoriteNGDataSupplier
+import geographic.boger.me.nationalgeographic.biz.common.FavoriteNGDataSupplier
 import geographic.boger.me.nationalgeographic.util.TransientExclusionStrategy
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -65,9 +65,9 @@ object NGRumtime {
     }
 
     fun locale(text: String): String =
-            LanguageLocalizationHelper.translate(
-                    LanguageLocalizationHelper.Type.SIMPLIFIED_CHINESE,
-                    LanguageLocalizationHelper.curType,
+            LocalizationWorker.translate(
+                    LocalizationWorker.Type.SIMPLIFIED_CHINESE,
+                    LocalizationWorker.curType,
                     text)
 
 }
