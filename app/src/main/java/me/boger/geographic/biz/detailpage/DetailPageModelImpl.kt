@@ -1,8 +1,8 @@
-package me.boger.geographic.biz.ngdetail
+package me.boger.geographic.biz.detailpage
 
 import android.os.Bundle
 import me.boger.geographic.core.NGRumtime
-import me.boger.geographic.biz.selectdate.NGDetailNetworkService
+import me.boger.geographic.biz.selectpage.DetailPageNetworkService
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -12,16 +12,16 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by BogerChan on 2017/6/30.
  */
-class NGDetailModelImpl : INGDetailModel {
+class DetailPageModelImpl : IDetailPageModel {
     private val mService by lazy {
-        NGRumtime.retrofit.create(NGDetailNetworkService::class.java)
+        NGRumtime.retrofit.create(DetailPageNetworkService::class.java)
     }
 
     private var disposable: Disposable? = null
 
     private val KEY_MODEL_NG_DETAIL_DATA = "key_model_ng_detail_data"
 
-    private var mBufferedData: NGDetailData? = null
+    private var mBufferedData: DetailPageData? = null
 
     private var isUseBufferedData = false
 
@@ -29,7 +29,7 @@ class NGDetailModelImpl : INGDetailModel {
                                      onStart: () -> Unit,
                                      onError: (Throwable) -> Unit,
                                      onComplete: () -> Unit,
-                                     onNext: (NGDetailData) -> Unit): Disposable {
+                                     onNext: (DetailPageData) -> Unit): Disposable {
         val buffData = mBufferedData
         if (buffData != null && isUseBufferedData) {
             isUseBufferedData = false
@@ -69,6 +69,6 @@ class NGDetailModelImpl : INGDetailModel {
             return
         }
         isUseBufferedData = true
-        mBufferedData = savedInstanceState.getSerializable(KEY_MODEL_NG_DETAIL_DATA) as NGDetailData
+        mBufferedData = savedInstanceState.getSerializable(KEY_MODEL_NG_DETAIL_DATA) as DetailPageData
     }
 }

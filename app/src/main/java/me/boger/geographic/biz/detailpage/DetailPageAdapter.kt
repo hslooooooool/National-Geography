@@ -1,4 +1,4 @@
-package me.boger.geographic.biz.ngdetail
+package me.boger.geographic.biz.detailpage
 
 import android.support.v4.view.PagerAdapter
 import android.view.View
@@ -10,7 +10,7 @@ import me.boger.geographic.R
 /**
  * Created by BogerChan on 2017/7/1.
  */
-class NGDetailPageAdapter(var data: List<NGDetailPictureData> = emptyList()) : PagerAdapter() {
+class DetailPageAdapter(var data: List<DetailPagePictureData> = emptyList()) : PagerAdapter() {
 
     interface OnItemClickListener {
         fun onItemClick(v: View, position: Int)

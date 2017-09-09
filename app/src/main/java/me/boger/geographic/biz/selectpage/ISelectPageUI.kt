@@ -1,4 +1,4 @@
-package me.boger.geographic.biz.selectdate
+package me.boger.geographic.biz.selectpage
 
 import android.view.View
 import me.boger.geographic.biz.common.ContentType
@@ -6,23 +6,23 @@ import me.boger.geographic.biz.common.ContentType
 /**
  * Created by BogerChan on 2017/6/27.
  */
-interface ISelectDateUI {
+interface ISelectPageUI {
 
     var contentType: ContentType
 
     fun getContentView(): View
 
-    fun refreshFavoriteData(favoriteData: SelectDateAlbumData)
+    fun refreshFavoriteData(favoriteData: SelectPageAlbumData)
 
-    fun refreshCardData(data: List<SelectDateAlbumData>, append: Boolean = false)
+    fun refreshCardData(data: List<SelectPageAlbumData>, append: Boolean = false)
 
     fun finishLoadMore()
 
     fun finishRefreshing()
 
     fun setOnRefreshListener(
-            onRefresh: (ISelectDateUI) -> Unit,
-            onLoadMore: (ISelectDateUI) -> Unit)
+            onRefresh: (ISelectPageUI) -> Unit,
+            onLoadMore: (ISelectPageUI) -> Unit)
 
     fun setOnRetryClickListener(listener: (view: View) -> Unit)
 

@@ -1,4 +1,4 @@
-package me.boger.geographic.biz.ngdetail
+package me.boger.geographic.biz.detailpage
 
 import me.boger.geographic.core.NGRumtime
 import java.io.Serializable
@@ -7,16 +7,16 @@ import java.io.Serializable
  * Created by BogerChan on 2017/7/1.
  */
 
-data class NGDetailData(var counttotal: String, var picture: MutableList<NGDetailPictureData>) : Serializable
+data class DetailPageData(var counttotal: String, var picture: MutableList<DetailPagePictureData>) : Serializable
 
-data class NGDetailPictureData(val id: String, val albumid: String, var title: String,
-                               var content: String, val url: String, val size: String,
-                               val addtime: String, var author: String, val thumb: String,
-                               val encoded: String, val weburl: String, val type: String,
-                               val yourshotlink: String, val copyright: String, val pmd5: String,
-                               val sort: String, var favorite: Boolean = false) : Serializable {
+data class DetailPagePictureData(val id: String, val albumid: String, var title: String,
+                                 var content: String, val url: String, val size: String,
+                                 val addtime: String, var author: String, val thumb: String,
+                                 val encoded: String, val weburl: String, val type: String,
+                                 val yourshotlink: String, val copyright: String, val pmd5: String,
+                                 val sort: String, var favorite: Boolean = false) : Serializable {
     override fun equals(other: Any?): Boolean {
-        return other is NGDetailPictureData && id == other.id
+        return other is DetailPagePictureData && id == other.id
     }
 
     override fun hashCode(): Int {
@@ -40,10 +40,10 @@ data class NGDetailPictureData(val id: String, val albumid: String, var title: S
     }
 
     @Transient
-    private var locale: NGDetailPictureData? = null
+    private var locale: DetailPagePictureData? = null
 
     //can't use lazy prepare, not thread safe
-    fun locale(): NGDetailPictureData {
+    fun locale(): DetailPagePictureData {
         if (locale == null) {
             locale = copy(title = NGRumtime.locale(title),
                     content = NGRumtime.locale(content),

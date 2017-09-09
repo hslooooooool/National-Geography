@@ -21,12 +21,11 @@ import android.widget.TextView
 import com.tencent.bugly.beta.Beta
 import me.boger.geographic.BuildConfig
 import me.boger.geographic.R
-import me.boger.geographic.biz.ngdetail.NGDetailFragment
-import me.boger.geographic.biz.selectdate.SelectDateAlbumData
-import me.boger.geographic.biz.selectdate.SelectDateFragment
+import me.boger.geographic.biz.detailpage.DetailPageFragment
+import me.boger.geographic.biz.selectpage.SelectPageAlbumData
+import me.boger.geographic.biz.selectpage.SelectPageFragment
 import me.boger.geographic.core.LocalizationWorker
 import me.boger.geographic.core.NGActivity
-import me.boger.geographic.core.NGConstants
 import me.boger.geographic.core.NGRumtime
 import me.boger.geographic.util.SdkSupporter
 import java.util.*
@@ -72,13 +71,13 @@ class MainActivity : NGActivity() {
         mPresenter.init(this)
     }
 
-    fun showSelectDateContent(listener: (SelectDateAlbumData) -> Unit) {
+    fun showSelectDateContent(listener: (SelectPageAlbumData) -> Unit) {
         fragmentManager.beginTransaction()
-                .add(R.id.cfl_activity_main_ng_content, SelectDateFragment(listener), SelectDateFragment.TAG)
+                .add(R.id.cfl_activity_main_ng_content, SelectPageFragment(listener), SelectPageFragment.TAG)
                 .commit()
     }
 
-    fun showNGDetailContent(data: SelectDateAlbumData) {
+    fun showNGDetailContent(data: SelectPageAlbumData) {
         val offlineData =
                 if (data.id == "unset") NGRumtime.favoriteNGDataSupplier.getNGDetailData() else null
         if (offlineData != null && offlineData.picture.isEmpty()) {
@@ -89,10 +88,10 @@ class MainActivity : NGActivity() {
                     .show()
             return
         }
-        val df = NGDetailFragment()
+        val df = DetailPageFragment()
         df.initData(data.id, offlineData)
         fragmentManager.beginTransaction()
-                .add(R.id.cfl_activity_main_ng_content_full, df, NGDetailFragment.TAG)
+                .add(R.id.cfl_activity_main_ng_content_full, df, DetailPageFragment.TAG)
                 .addToBackStack(null)
                 .setCustomAnimations(R.anim.scale_in, R.anim.scale_out)
                 .commit()

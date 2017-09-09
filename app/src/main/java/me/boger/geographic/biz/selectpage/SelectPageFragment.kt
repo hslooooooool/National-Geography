@@ -1,9 +1,5 @@
-package me.boger.geographic.biz.selectdate
+package me.boger.geographic.biz.selectpage
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -20,7 +16,6 @@ import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 import me.boger.geographic.R
 import me.boger.geographic.biz.common.ContentType
-import me.boger.geographic.biz.common.FavoriteNGDataSupplier
 import me.boger.geographic.core.NGConstants
 import me.boger.geographic.core.NGFragment
 import me.boger.geographic.view.SealedTextView
@@ -28,15 +23,15 @@ import me.boger.geographic.view.SealedTextView
 /**
  * Created by BogerChan on 2017/6/27.
  */
-class SelectDateFragment(
-        var albumSelectedListener: (SelectDateAlbumData) -> Unit = {}) : NGFragment(), ISelectDateUI {
+class SelectPageFragment(
+        var albumSelectedListener: (SelectPageAlbumData) -> Unit = {}) : NGFragment(), ISelectPageUI {
 
     companion object {
-        val TAG = "SelectDateFragment"
+        val TAG = "SelectPageFragment"
     }
 
-    private val mPresenter: ISelectDatePresenter by lazy {
-        SelectDatePresenterImpl()
+    private val mPresenter: ISelectPagePresenter by lazy {
+        SelectPagePresenterImpl()
     }
 
     private val rvContent: RecyclerView by lazy {
@@ -128,10 +123,10 @@ class SelectDateFragment(
     }
 
     private fun initViews() {
-        rvContent.adapter = SlideInBottomAnimationAdapter(SelectDateAdapter(albumSelectedListener))
+        rvContent.adapter = SlideInBottomAnimationAdapter(SelectPageAdapter(albumSelectedListener))
         rvContent.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         rvContent.itemAnimator = LandingAnimator()
-        rvContent.addItemDecoration(SelectDateItemDecoration())
+        rvContent.addItemDecoration(SelectPageItemDecoration())
         val bezierHeaderView = BezierLayout(activity)
         bezierHeaderView.setWaveColor(ResourcesCompat.getColor(resources, R.color.color_gray_50, activity.theme))
         bezierHeaderView.setRippleColor(ResourcesCompat.getColor(resources, R.color.color_gray_dark, activity.theme))
@@ -146,16 +141,16 @@ class SelectDateFragment(
         return trlContent
     }
 
-    override fun refreshFavoriteData(favoriteData: SelectDateAlbumData) {
-        val adapter = (rvContent.adapter as AnimationAdapter).wrappedAdapter as SelectDateAdapter
+    override fun refreshFavoriteData(favoriteData: SelectPageAlbumData) {
+        val adapter = (rvContent.adapter as AnimationAdapter).wrappedAdapter as SelectPageAdapter
         if (adapter.listData.isNotEmpty()) {
             adapter.listData[0] = favoriteData
         }
         adapter.notifyDataSetChanged()
     }
 
-    override fun refreshCardData(data: List<SelectDateAlbumData>, append: Boolean) {
-        val adapter = (rvContent.adapter as AnimationAdapter).wrappedAdapter as SelectDateAdapter
+    override fun refreshCardData(data: List<SelectPageAlbumData>, append: Boolean) {
+        val adapter = (rvContent.adapter as AnimationAdapter).wrappedAdapter as SelectPageAdapter
         if (append) adapter.listData.addAll(data)
         else adapter.listData = data.toMutableList()
         adapter.notifyDataSetChanged()
@@ -170,15 +165,15 @@ class SelectDateFragment(
     }
 
     override fun setOnRefreshListener(
-            onRefresh: (ISelectDateUI) -> Unit,
-            onLoadMore: (ISelectDateUI) -> Unit) {
+            onRefresh: (ISelectPageUI) -> Unit,
+            onLoadMore: (ISelectPageUI) -> Unit) {
         trlContent.setOnRefreshListener(object : RefreshListenerAdapter() {
             override fun onRefresh(refreshLayout: TwinklingRefreshLayout?) {
-                onRefresh(this@SelectDateFragment)
+                onRefresh(this@SelectPageFragment)
             }
 
             override fun onLoadMore(refreshLayout: TwinklingRefreshLayout?) {
-                onLoadMore(this@SelectDateFragment)
+                onLoadMore(this@SelectPageFragment)
             }
         })
     }

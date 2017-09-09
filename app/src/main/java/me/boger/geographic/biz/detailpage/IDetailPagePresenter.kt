@@ -1,18 +1,18 @@
-package me.boger.geographic.biz.ngdetail
+package me.boger.geographic.biz.detailpage
 
 import android.os.Bundle
 
 /**
  * Created by BogerChan on 2017/6/30.
  */
-interface INGDetailPresenter {
-    fun init(ui: INGDetailUI)
+interface IDetailPagePresenter {
+    fun init(ui: IDetailPageUI)
 
     fun shareNGDetailImage(url: String)
 
     fun saveNGDetailImage(url: String)
 
-    fun setNGDetailItemFavoriteState(data: NGDetailPictureData)
+    fun setNGDetailItemFavoriteState(data: DetailPagePictureData)
 
     fun destroy()
 

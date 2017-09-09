@@ -1,4 +1,4 @@
-package me.boger.geographic.biz.ngdetail
+package me.boger.geographic.biz.detailpage
 
 import android.os.Bundle
 import io.reactivex.disposables.Disposable
@@ -6,12 +6,12 @@ import io.reactivex.disposables.Disposable
 /**
  * Created by BogerChan on 2017/7/1.
  */
-interface INGDetailModel {
+interface IDetailPageModel {
     fun requestNGDetailData(id: String,
                             onStart: () -> Unit,
                             onError: (Throwable) -> Unit,
                             onComplete: () -> Unit,
-                            onNext: (NGDetailData) -> Unit): Disposable
+                            onNext: (DetailPageData) -> Unit): Disposable
 
     fun cancelPendingCall()
 

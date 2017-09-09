@@ -1,4 +1,4 @@
-package me.boger.geographic.biz.selectdate
+package me.boger.geographic.biz.selectpage
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
-import android.widget.TextView
 import com.facebook.drawee.view.SimpleDraweeView
 import me.boger.geographic.R
 import me.boger.geographic.util.Timber
@@ -18,14 +17,14 @@ import me.boger.geographic.view.SealedTextView
  * Created by BogerChan on 2017/6/29.
  */
 
-class SelectDateAdapter(val onItemClickListener: (SelectDateAlbumData) -> Unit) : RecyclerView.Adapter<SelectDateAdapter.ViewHolder>() {
+class SelectPageAdapter(private val onItemClickListener: (SelectPageAlbumData) -> Unit) : RecyclerView.Adapter<SelectPageAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val sdvContent by lazy { itemView.findViewById(R.id.sdv_item_select_date) as SimpleDraweeView }
         val tvText by lazy { itemView.findViewById(R.id.tv_item_select_date) as SealedTextView }
     }
 
-    var listData: MutableList<SelectDateAlbumData> = mutableListOf()
+    var listData: MutableList<SelectPageAlbumData> = mutableListOf()
 
     private var mPendingScaleAnimator: Animator? = null
 

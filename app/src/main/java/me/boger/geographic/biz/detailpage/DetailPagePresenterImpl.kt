@@ -1,4 +1,4 @@
-package me.boger.geographic.biz.ngdetail
+package me.boger.geographic.biz.detailpage
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -25,15 +25,15 @@ import java.util.*
  * Created by BogerChan on 2017/6/30.
  */
 
-class NGDetailPresenterImpl : INGDetailPresenter {
+class DetailPagePresenterImpl : IDetailPagePresenter {
 
-    private var mUI: INGDetailUI? = null
+    private var mUI: IDetailPageUI? = null
 
-    private val mModel: INGDetailModel by lazy {
-        NGDetailModelImpl()
+    private val mModel: IDetailPageModel by lazy {
+        DetailPageModelImpl()
     }
 
-    override fun init(ui: INGDetailUI) {
+    override fun init(ui: IDetailPageUI) {
         mUI = ui
         if (ui.hasOfflineData()) {
             ui.refreshData(ui.getOfflineData().picture)
@@ -91,7 +91,7 @@ class NGDetailPresenterImpl : INGDetailPresenter {
                 })
     }
 
-    override fun setNGDetailItemFavoriteState(data: NGDetailPictureData) {
+    override fun setNGDetailItemFavoriteState(data: DetailPagePictureData) {
         val supplier = NGRumtime.favoriteNGDataSupplier
         if (data.favorite) {
             data.favorite = false

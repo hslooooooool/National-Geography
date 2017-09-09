@@ -1,4 +1,4 @@
-package me.boger.geographic.biz.ngdetail
+package me.boger.geographic.biz.detailpage
 
 import android.content.ContentResolver
 import android.content.Intent
@@ -7,10 +7,10 @@ import me.boger.geographic.biz.common.ContentType
 /**
  * Created by BogerChan on 2017/6/30.
  */
-interface INGDetailUI {
+interface IDetailPageUI {
     var contentType: ContentType
 
-    fun refreshData(data: List<NGDetailPictureData>)
+    fun refreshData(data: List<DetailPagePictureData>)
 
     fun showTipMessage(msg: String)
 
@@ -28,7 +28,7 @@ interface INGDetailUI {
 
     fun hasOfflineData(): Boolean
 
-    fun getOfflineData(): NGDetailData
+    fun getOfflineData(): DetailPageData
 
     fun getNGDetailDataId(): String
 }

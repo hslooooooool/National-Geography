@@ -1,12 +1,12 @@
-package me.boger.geographic.biz.selectdate
+package me.boger.geographic.biz.selectpage
 
 import android.os.Bundle
 
 /**
  * Created by BogerChan on 2017/6/27.
  */
-interface ISelectDatePresenter {
-    fun init(ui: ISelectDateUI)
+interface ISelectPagePresenter {
+    fun init(ui: ISelectPageUI)
 
     fun notifyFavoriteNGDetailDataChanged()
 

@@ -6,9 +6,9 @@ import android.text.TextUtils
 import com.google.gson.reflect.TypeToken
 import me.boger.geographic.R
 import me.boger.geographic.core.NGRumtime
-import me.boger.geographic.biz.ngdetail.NGDetailData
-import me.boger.geographic.biz.ngdetail.NGDetailPictureData
-import me.boger.geographic.biz.selectdate.SelectDateAlbumData
+import me.boger.geographic.biz.detailpage.DetailPageData
+import me.boger.geographic.biz.detailpage.DetailPagePictureData
+import me.boger.geographic.biz.selectpage.SelectPageAlbumData
 import me.boger.geographic.core.NGBroadcastManager
 import me.boger.geographic.core.NGConstants
 import me.boger.geographic.util.Timber
@@ -23,22 +23,22 @@ class FavoriteNGDataSupplier(ctx: Context) {
         val KEY_FAVORITE_NG_DETAIL_DATA = "fav_ng_detail_data"
     }
 
-    private var mNGDetailData: NGDetailData = NGDetailData("0", ArrayList<NGDetailPictureData>(0))
+    private var mNGDetailData: DetailPageData = DetailPageData("0", ArrayList<DetailPagePictureData>(0))
 
     private var mSP = ctx.getSharedPreferences(ctx.packageName, Context.MODE_PRIVATE)
 
     init {
         val jsonNGDetailData = mSP.getString(KEY_FAVORITE_NG_DETAIL_DATA, null)
         if (!TextUtils.isEmpty(jsonNGDetailData)) {
-            val list = NGRumtime.gson.fromJson<MutableList<NGDetailPictureData>>(
+            val list = NGRumtime.gson.fromJson<MutableList<DetailPagePictureData>>(
                     jsonNGDetailData,
-                    object : TypeToken<MutableList<NGDetailPictureData>>() {}.type)
+                    object : TypeToken<MutableList<DetailPagePictureData>>() {}.type)
             mNGDetailData.counttotal = list.size.toString()
             mNGDetailData.picture = list
         }
     }
 
-    fun addNGDetailDataToFavorite(data: NGDetailPictureData): Boolean {
+    fun addNGDetailDataToFavorite(data: DetailPagePictureData): Boolean {
         try {
             if (mNGDetailData.picture.contains(data)) {
                 return true
@@ -56,7 +56,7 @@ class FavoriteNGDataSupplier(ctx: Context) {
         return true
     }
 
-    fun removeNGDetailDataToFavorite(data: NGDetailPictureData): Boolean {
+    fun removeNGDetailDataToFavorite(data: DetailPagePictureData): Boolean {
         try {
             if (!mNGDetailData.picture.contains(data)) {
                 return true
@@ -74,7 +74,7 @@ class FavoriteNGDataSupplier(ctx: Context) {
         return true
     }
 
-    fun getNGDetailData(): NGDetailData {
+    fun getNGDetailData(): DetailPageData {
         mNGDetailData.picture.forEach {
             it.clearLocale()
         }
@@ -88,7 +88,7 @@ class FavoriteNGDataSupplier(ctx: Context) {
 
     private fun getImageCount() = mNGDetailData.picture.size
 
-    fun syncFavoriteState(data: NGDetailData) {
+    fun syncFavoriteState(data: DetailPageData) {
         val favoriteIdSet = mutableSetOf<String>()
         mNGDetailData.picture.forEach {
             favoriteIdSet.add(it.id)
@@ -98,8 +98,8 @@ class FavoriteNGDataSupplier(ctx: Context) {
         }
     }
 
-    fun getFavoriteAlbumData(): SelectDateAlbumData {
-        return SelectDateAlbumData(
+    fun getFavoriteAlbumData(): SelectPageAlbumData {
+        return SelectPageAlbumData(
                 "unset",
                 String.format(Locale.getDefault(),
                         NGRumtime.application.getString(R.string.text_favorite_item_title),

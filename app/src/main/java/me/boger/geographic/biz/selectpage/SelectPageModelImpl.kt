@@ -1,4 +1,4 @@
-package me.boger.geographic.biz.selectdate
+package me.boger.geographic.biz.selectpage
 
 import android.os.Bundle
 import me.boger.geographic.core.NGRumtime
@@ -12,11 +12,11 @@ import io.reactivex.schedulers.Schedulers
  * Created by BogerChan on 2017/6/28.
  */
 
-class SelectDateModelImpl : ISelectDateModel {
+class SelectPageModelImpl : ISelectPageModel {
 
-    private var mSelectDateDataList = arrayListOf<SelectDateData>()
+    private var mSelectDateDataList = arrayListOf<SelectPageData>()
     private val mSelectDateNetworkService by lazy {
-        NGRumtime.retrofit.create(SelectDateNetworkService::class.java)
+        NGRumtime.retrofit.create(SelectPageNetworkService::class.java)
     }
 
     private val KEY_MODEL_SELECT_DATE = "key_model_select_date"
@@ -36,7 +36,7 @@ class SelectDateModelImpl : ISelectDateModel {
             onStart: () -> Unit,
             onError: (Throwable) -> Unit,
             onComplete: () -> Unit,
-            onNext: (SelectDateData) -> Unit
+            onNext: (SelectPageData) -> Unit
     ): Disposable {
         val pageIdxStr: String = pageIdx.toString()
         mSelectDateDataList.forEach {
@@ -108,6 +108,6 @@ class SelectDateModelImpl : ISelectDateModel {
             return
         }
         mSelectDateDataList = savedInstanceState
-                .getSerializable(KEY_MODEL_SELECT_DATE) as ArrayList<SelectDateData>
+                .getSerializable(KEY_MODEL_SELECT_DATE) as ArrayList<SelectPageData>
     }
 }

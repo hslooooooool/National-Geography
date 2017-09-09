@@ -1,4 +1,4 @@
-package me.boger.geographic.biz.ngdetail
+package me.boger.geographic.biz.detailpage
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -28,15 +28,15 @@ import java.util.*
 /**
  * Created by BogerChan on 2017/6/30.
  */
-class NGDetailFragment : NGFragment(), INGDetailUI {
+class DetailPageFragment : NGFragment(), IDetailPageUI {
 
     companion object {
-        val TAG = "NGDetailFragment"
+        val TAG = "DetailPageFragment"
 
         val KEY_FRAGMENT_NGDETAIL_INTERNAL_DATA = "key_fragment_ngdetail_internal_data"
     }
 
-    private val mPresenter: INGDetailPresenter by lazy { NGDetailPresenterImpl() }
+    private val mPresenter: IDetailPagePresenter by lazy { DetailPagePresenterImpl() }
 
     private val llcIntroAndMenu by lazy {
         view!!.findViewById(R.id.llc_fragment_ng_detail_intro_and_menu)
@@ -107,7 +107,7 @@ class NGDetailFragment : NGFragment(), INGDetailUI {
     private var mPendingOverlayAnimator: Animator? = null
 
     private class InternalData(var id: String? = null,
-                               var offlineData: NGDetailData? = null) : Serializable
+                               var offlineData: DetailPageData? = null) : Serializable
 
     private lateinit var mInternalData: InternalData
 
@@ -150,13 +150,13 @@ class NGDetailFragment : NGFragment(), INGDetailUI {
         outState.putSerializable(KEY_FRAGMENT_NGDETAIL_INTERNAL_DATA, mInternalData)
     }
 
-    fun initData(id: String?, offlineData: NGDetailData?) {
+    fun initData(id: String?, offlineData: DetailPageData?) {
         mInternalData = InternalData(id, offlineData)
     }
 
     fun initView() {
-        val adapter = NGDetailPageAdapter()
-        adapter.setOnItemClickListener(object : NGDetailPageAdapter.OnItemClickListener {
+        val adapter = DetailPageAdapter()
+        adapter.setOnItemClickListener(object : DetailPageAdapter.OnItemClickListener {
 
             private var show: Boolean = true
 
@@ -194,15 +194,15 @@ class NGDetailFragment : NGFragment(), INGDetailUI {
         })
         llcMenuShare.setOnClickListener {
             mPresenter.shareNGDetailImage(
-                    (vpContent.adapter as NGDetailPageAdapter).data[vpContent.currentItem].url)
+                    (vpContent.adapter as DetailPageAdapter).data[vpContent.currentItem].url)
         }
         llcMenuSave.setOnClickListener {
             mPresenter.saveNGDetailImage(
-                    (vpContent.adapter as NGDetailPageAdapter).data[vpContent.currentItem].url)
+                    (vpContent.adapter as DetailPageAdapter).data[vpContent.currentItem].url)
         }
         llcMenuFav.setOnClickListener {
             mPresenter.setNGDetailItemFavoriteState(
-                    (vpContent.adapter as NGDetailPageAdapter).data[vpContent.currentItem])
+                    (vpContent.adapter as DetailPageAdapter).data[vpContent.currentItem])
         }
     }
 
@@ -234,18 +234,18 @@ class NGDetailFragment : NGFragment(), INGDetailUI {
             field = value
         }
 
-    override fun refreshData(data: List<NGDetailPictureData>) {
+    override fun refreshData(data: List<DetailPagePictureData>) {
         if (data.isEmpty()) {
             return
         }
-        val adapter = vpContent.adapter as NGDetailPageAdapter
+        val adapter = vpContent.adapter as DetailPageAdapter
         adapter.data = data
         adapter.notifyDataSetChanged()
         vpContent.currentItem = 0
         updateContent(data, 0)
     }
 
-    private fun updateContent(dataList: List<NGDetailPictureData>, idx: Int) {
+    private fun updateContent(dataList: List<DetailPagePictureData>, idx: Int) {
         val data = dataList[idx]
         val localeData = data.locale()
         tvTitle.text = localeData.title
@@ -382,7 +382,7 @@ class NGDetailFragment : NGFragment(), INGDetailUI {
 
     override fun hasOfflineData(): Boolean = mInternalData.offlineData != null
 
-    override fun getOfflineData(): NGDetailData = mInternalData.offlineData!!
+    override fun getOfflineData(): DetailPageData = mInternalData.offlineData!!
 
     override fun getNGDetailDataId(): String = mInternalData.id!!
 }
