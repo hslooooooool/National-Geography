@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="snap">
 
-            <geographic.boger.me.nationalgeographic.view.SealedTextView
+            <me.boger.geographic.view.SealedTextView
                 android:padding="12dp"
                 android:id="@+id/tv_activity_main_ng_title"
                 style="@style/AppTheme.NGTitle"
@@ -39,7 +39,7 @@
                 android:drawableLeft="@drawable/ic_action_ng_logo"
                 android:text="@string/text_action_bar" />
 
-            <geographic.boger.me.nationalgeographic.view.SealedIconFont
+            <me.boger.geographic.view.SealedIconFont
                 android:padding="12dp"
                 android:id="@+id/icon_activity_main_ng_menu"
                 style="@style/AppTheme.NGTitle"
