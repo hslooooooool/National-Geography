@@ -8,3 +8,4 @@ app/bugly
 gradle.properties
 app/libs/
 app/src/main/res/animation/
+store.jks

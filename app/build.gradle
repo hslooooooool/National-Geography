@@ -2,13 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'bugly'
 
-def localProperties = new Properties()
-localProperties.load(project.rootProject.file('local.properties')
-        .newDataInputStream())
-
 android {
     compileSdkVersion 25
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "geographic.boger.me.nationalgeographicdailyposter"
         minSdkVersion 16
@@ -19,10 +15,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file(localProperties.getProperty('storeFile'))
-            storePassword localProperties.getProperty('storePassword')
-            keyAlias localProperties.getProperty('keyAlias')
-            keyPassword localProperties.getProperty('keyPassword')
+            storeFile file('../store.jks')
+            storePassword getValue('storePassword')
+            keyAlias getValue('keyAlias')
+            keyPassword getValue('keyPassword')
         }
     }
     buildTypes {
@@ -39,8 +35,12 @@ android {
             //设置支持的SO库架构
             abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
-        resValue 'string', 'app_id_bugly', localProperties.getProperty('appIdBugly')
+        resValue 'string', 'app_id_bugly', getValue('appIdBugly')
     }
+}
+
+def getValue(String key) {
+    project.hasProperty(key) ? project.getProperty(key) : System.getenv(key)
 }
 
 dependencies {
@@ -72,6 +72,6 @@ repositories {
 }
 
 bugly {
-    appId = localProperties.getProperty('appIdBugly') // 注册时分配的App ID
-    appKey = localProperties.getProperty('appKeyBugly') // 注册时分配的App Key
+    appId = getValue('appIdBugly') // 注册时分配的App ID
+    appKey = getValue('appKeyBugly') // 注册时分配的App Key
 }
