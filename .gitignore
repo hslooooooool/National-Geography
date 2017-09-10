@@ -5,3 +5,6 @@ build/
 local.properties
 nationalgeographic.iml
 app/bugly
+gradle.properties
+app/libs/
+app/src/main/res/animation/
